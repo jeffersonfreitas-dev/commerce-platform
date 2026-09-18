@@ -2,7 +2,9 @@ package dev.jeffersonfreitas.customer.infra.out.persistence.customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CustomerJpaRepository extends JpaRepository<CustomerJpaEntity, String> {
+import java.util.Optional;
+
+public interface CustomerJpaRepository extends JpaRepository<EntityCustomerJpa, String> {
     boolean existsByEmail(String email);
-    CustomerJpaEntity findByEmail(String email);
+    Optional<EntityCustomerJpa> findByEmail(String email);
 }

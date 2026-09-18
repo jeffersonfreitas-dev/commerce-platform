@@ -1,18 +1,13 @@
 package dev.jeffersonfreitas.customer.infra.out.persistence.customer;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 
 @Data
@@ -20,10 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customers")
-public class CustomerJpaEntity {
+public class EntityCustomerJpa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Column(nullable = false, length = 60)
@@ -38,5 +33,14 @@ public class CustomerJpaEntity {
     @Column(nullable = false, name = "created_at")
     private Instant createdAt;
 
-    private Set<DeliverAddressJpaEntity> address;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<EntityDeliverAddressJpa> address;
+
+    public EntityCustomerJpa(String id, String name, String email, LocalDate birthdate, Instant createdAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.birthdate = birthdate;
+        this.createdAt = createdAt;
+    }
 }

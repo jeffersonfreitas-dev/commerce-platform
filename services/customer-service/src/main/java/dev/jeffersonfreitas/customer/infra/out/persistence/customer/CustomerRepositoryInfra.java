@@ -1,17 +1,9 @@
 package dev.jeffersonfreitas.customer.infra.out.persistence.customer;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
-
-import dev.jeffersonfreitas.customer.application.dto.PageGeneric;
-import dev.jeffersonfreitas.customer.application.dto.PageableRequest;
 import dev.jeffersonfreitas.customer.application.port.out.customer.CustomerRepository;
 import dev.jeffersonfreitas.customer.domain.model.Customer;
-import dev.jeffersonfreitas.customer.infra.out.PageRequestMapper;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -30,7 +22,7 @@ public class CustomerRepositoryInfra implements CustomerRepository {
 
     @Override
     public Customer save(Customer customer) {
-        CustomerJpaEntity entity = CustomerMapper.toEntity(customer);
+        EntityCustomerJpa entity = CustomerMapper.toEntity(customer);
         entity = customerJpaRepository.save(entity);
         return CustomerMapper.toDomain(entity);
     }
