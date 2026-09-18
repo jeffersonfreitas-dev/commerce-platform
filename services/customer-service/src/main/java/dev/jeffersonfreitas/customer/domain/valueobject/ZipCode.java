@@ -22,8 +22,8 @@ public class ZipCode {
             throw new InvalidValueObjectException("O CEP não pode ser nulo ou vazio");
         }
 
-        if (code.length() < 6 || code.length() > 6){
-            throw new InvalidValueObjectException("O CEP deve conter exatamente seis digitos");
+        if (code.length() > 8){
+            throw new InvalidValueObjectException("O CEP deve conter no máximo oito digitos");
         }
     }
 

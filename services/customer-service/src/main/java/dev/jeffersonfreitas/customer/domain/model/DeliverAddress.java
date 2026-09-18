@@ -7,7 +7,7 @@ import dev.jeffersonfreitas.customer.domain.valueobject.ZipCode;
 
 public class DeliverAddress {
 
-    private final Id id;
+    private Id id;
     private final String street;
     private final String number;
     private final String neighborhood;
@@ -15,11 +15,10 @@ public class DeliverAddress {
     private final ZipCode zipcode;
     private final String state;
     private final String reference;
-    private final boolean active;
+    private boolean active;
     private final boolean main;
 
     public DeliverAddress(String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean main){
-        this.id = new Id();
         this.street = street;
         this.number = number;
         this.neighborhood = neighborhood;
@@ -31,7 +30,7 @@ public class DeliverAddress {
         this.main = main;
     }
 
-    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean active, boolean main){
+    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean main){
         this.id = new Id(id);
         this.street = street;
         this.number = number;
@@ -40,8 +39,20 @@ public class DeliverAddress {
         this.zipcode = new ZipCode(zipcode);
         this.state = state;
         this.reference = reference;
-        this.active = active;
         this.main = main;
+    }
+
+    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean active, boolean main){
+        this(id, street, number, neighborhood, city, zipcode, state, reference, main);
+        this.active = active;
+    }
+
+    public void active(){
+        this.active = true;
+    }
+
+    public void deactive() {
+        this.active = false;
     }
 
 

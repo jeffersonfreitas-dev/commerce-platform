@@ -11,7 +11,7 @@ import dev.jeffersonfreitas.customer.domain.valueobject.Id;
 import dev.jeffersonfreitas.customer.domain.valueobject.Name;
 
 public class Customer {
-    private final Id id;
+    private Id id;
     private final Name name;
     private final BirthDate birthdate;
     private final Email email;
@@ -21,7 +21,6 @@ public class Customer {
     
     public Customer(String name, String email, LocalDate birthdate, DeliverAddress address){
         addresses = new HashSet<>();
-        this.id = new Id();
         this.name = new Name(name);
         this.email = new Email(email);
         this.birthdate = new BirthDate(birthdate);

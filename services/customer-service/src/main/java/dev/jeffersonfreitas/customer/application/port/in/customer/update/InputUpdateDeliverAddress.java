@@ -11,12 +11,11 @@ public record InputUpdateDeliverAddress(
     String zipcode,
     String state,
     String reference,
-    boolean main,
-    boolean active
+    boolean main
 ) {
 
     public static DeliverAddress toDomain(InputUpdateDeliverAddress address){
-        return new DeliverAddress(address.id, address.street, address.number, address.neighborhood, address.city, address.zipcode, address.state, address.reference, address.main, address.active);
+        return new DeliverAddress(address.id, address.street, address.number, address.neighborhood, address.city, address.zipcode, address.state, address.reference, address.main);
     }
 
 }

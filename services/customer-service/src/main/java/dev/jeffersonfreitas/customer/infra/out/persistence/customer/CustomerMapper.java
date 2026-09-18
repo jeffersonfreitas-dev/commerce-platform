@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,11 +38,15 @@ public final class CustomerMapper {
         if(customer == null){
             throw new BusinessException("Dominio não pode ser nulo ao converter para a entidade");
         }
-
+        String id = null;
         List<EntityDeliverAddressJpa> addressJpas = new ArrayList<>();
 
+        if(Objects.nonNull(customer.getId())){
+            id = customer.getId().value();
+        }
+
         EntityCustomerJpa customerEntity =  new EntityCustomerJpa(
-            customer.getId().value(),
+            id,
             customer.getName().value(),
             customer.getEmail().value(),
             customer.getBirthdate().value(),
@@ -60,7 +65,7 @@ public final class CustomerMapper {
 
     }
 
-    private static DeliverAddress toDomain(EntityDeliverAddressJpa entity){
+    public static DeliverAddress toDomain(EntityDeliverAddressJpa entity){
         return new DeliverAddress(
                 entity.getId(),
                 entity.getStreet(),
@@ -70,14 +75,18 @@ public final class CustomerMapper {
                 entity.getZipcode(),
                 entity.getState(),
                 entity.getReference(),
-                entity.isActive(),
                 entity.isMain()
         );
     }
 
-    private static EntityDeliverAddressJpa toEntity(DeliverAddress domain){
+    public static EntityDeliverAddressJpa toEntity(DeliverAddress domain){
+        String id = null;
+        if (Objects.nonNull(domain.getId())){
+            id = domain.getId().value();
+        }
+
         return new EntityDeliverAddressJpa(
-                domain.getId().value(),
+                id,
                 domain.getStreet(),
                 domain.getNumber(),
                 domain.getNeighborhood(),

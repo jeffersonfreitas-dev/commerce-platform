@@ -7,13 +7,15 @@ import dev.jeffersonfreitas.customer.domain.model.Customer;
 import dev.jeffersonfreitas.customer.domain.model.DeliverAddress;
 
 public record OutputDeliverAddress(
+    String id,
     String street,
     String number,
     String neighborhood,
     String city,
     String zipcode,
     String state,
-    String reference
+    String reference,
+    boolean main
 ) {
 
     public static List<OutputDeliverAddress> from(Customer customer) {
@@ -23,8 +25,8 @@ public record OutputDeliverAddress(
         return customer.getAddresses().stream().map(OutputDeliverAddress::from).toList();
     }
 
-    private static OutputDeliverAddress from(DeliverAddress address){
-        return new OutputDeliverAddress(address.getStreet(), address.getNumber(), 
-            address.getNeighborhood(), address.getCity(), address.getZipcode().value(), address.getState(), address.getReference());
+    public static OutputDeliverAddress from(DeliverAddress address){
+        return new OutputDeliverAddress(address.getId().value(), address.getStreet(), address.getNumber(), 
+            address.getNeighborhood(), address.getCity(), address.getZipcode().value(), address.getState(), address.getReference(), address.isMain());
     }
 }

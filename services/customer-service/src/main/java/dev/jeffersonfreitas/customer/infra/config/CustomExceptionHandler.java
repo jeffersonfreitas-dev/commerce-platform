@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import dev.jeffersonfreitas.customer.application.exception.AddressNotBelongException;
 import dev.jeffersonfreitas.customer.application.exception.BusinessException;
 import dev.jeffersonfreitas.customer.application.exception.CustomerNotFoundException;
 import dev.jeffersonfreitas.customer.domain.exception.CustomerAlreadyExistsException;
@@ -35,10 +36,24 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ProblemDetail handleNullPointerException(NullPointerException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        problemDetail.setTitle("Objeto nulo");
+        return problemDetail;
+    }    
+
     @ExceptionHandler(BusinessException.class)
     public ProblemDetail handleBusinessException(BusinessException e){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
         problemDetail.setTitle("Houve um problema com a sua requisição");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(AddressNotBelongException.class)
+    public ProblemDetail handleAddressNotBelongException(AddressNotBelongException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+        problemDetail.setTitle("Problema ao buscar endereço do cliente");
         return problemDetail;
     }
 

@@ -1,9 +1,9 @@
 package dev.jeffersonfreitas.customer.application.port.in.customer.update;
 
-import dev.jeffersonfreitas.customer.application.port.in.customer.OutputCustomer;
+import dev.jeffersonfreitas.customer.application.port.in.customer.OutputDeliverAddress;
 
 public interface UCUpdateDeliverAddress {
 
-    OutputCustomer execute(String email, InputUpdateDeliverAddress input);
+    OutputDeliverAddress execute(String email, InputUpdateDeliverAddress input);
 
 }

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class CustomerRepositoryInfra implements CustomerRepository {
+public class RepositoryImplCustomer implements CustomerRepository {
 
-    private final CustomerJpaRepository customerJpaRepository;
+    private final RepositoryCustomerJpa customerJpaRepository;
 
-    public CustomerRepositoryInfra(CustomerJpaRepository customerJpaRepository) {
+    public RepositoryImplCustomer(RepositoryCustomerJpa customerJpaRepository) {
         this.customerJpaRepository = customerJpaRepository;
     }
 
