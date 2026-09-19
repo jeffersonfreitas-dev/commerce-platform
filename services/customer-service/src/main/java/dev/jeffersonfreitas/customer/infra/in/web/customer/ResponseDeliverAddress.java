@@ -12,7 +12,7 @@ public record ResponseDeliverAddress(
     String zipcode,
     String state,
     String reference,
-    boolean main
+    boolean active
 ) {
 
     public static List<ResponseDeliverAddress> from(List<OutputDeliverAddress> addresses) {
@@ -21,6 +21,6 @@ public record ResponseDeliverAddress(
 
     public static ResponseDeliverAddress from(OutputDeliverAddress address){
         return new ResponseDeliverAddress(address.id(), address.street(), address.number(), 
-            address.neighborhood(), address.city(), address.zipcode(), address.state(), address.reference(), address.main());
+            address.neighborhood(), address.city(), address.zipcode(), address.state(), address.reference(), address.active());
     }
 }

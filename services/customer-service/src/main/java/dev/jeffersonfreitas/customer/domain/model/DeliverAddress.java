@@ -1,9 +1,9 @@
 package dev.jeffersonfreitas.customer.domain.model;
 
-import java.util.Objects;
-
 import dev.jeffersonfreitas.customer.domain.valueobject.Id;
 import dev.jeffersonfreitas.customer.domain.valueobject.ZipCode;
+
+import java.util.Objects;
 
 public class DeliverAddress {
 
@@ -16,9 +16,8 @@ public class DeliverAddress {
     private final String state;
     private final String reference;
     private boolean active;
-    private final boolean main;
 
-    public DeliverAddress(String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean main){
+    public DeliverAddress(String street, String number, String neighborhood, String city, String zipcode, String state, String reference){
         this.street = street;
         this.number = number;
         this.neighborhood = neighborhood;
@@ -27,10 +26,9 @@ public class DeliverAddress {
         this.state = state;
         this.reference = reference;
         this.active = true;
-        this.main = main;
     }
 
-    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean main){
+    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference){
         this.id = new Id(id);
         this.street = street;
         this.number = number;
@@ -39,15 +37,14 @@ public class DeliverAddress {
         this.zipcode = new ZipCode(zipcode);
         this.state = state;
         this.reference = reference;
-        this.main = main;
     }
 
-    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean active, boolean main){
-        this(id, street, number, neighborhood, city, zipcode, state, reference, main);
+    public DeliverAddress(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean active){
+        this(id, street, number, neighborhood, city, zipcode, state, reference);
         this.active = active;
     }
 
-    public void active(){
+    public void activeted(){
         this.active = true;
     }
 
@@ -90,10 +87,6 @@ public class DeliverAddress {
 
     public boolean isActive() {
         return active;
-    }
-
-    public boolean isMain() {
-        return main;
     }
 
 

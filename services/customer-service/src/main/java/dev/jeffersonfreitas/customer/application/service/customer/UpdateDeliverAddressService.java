@@ -10,6 +10,8 @@ import dev.jeffersonfreitas.customer.application.port.out.customer.DeliverAddres
 import dev.jeffersonfreitas.customer.domain.model.Customer;
 import dev.jeffersonfreitas.customer.domain.model.DeliverAddress;
 
+import java.util.Optional;
+
 public class UpdateDeliverAddressService implements UCUpdateDeliverAddress {
 
     private final DeliverAddressRepository repository;
@@ -25,12 +27,13 @@ public class UpdateDeliverAddressService implements UCUpdateDeliverAddress {
         Customer customer = customerRepository.getByEmail(email)
                 .orElseThrow(() -> new CustomerNotFoundException("E-mail não encontrado para realizar a atualização do cliente"));
 
-        boolean notBelongCustomer = customer.getAddresses().stream().noneMatch(address -> address.getId().value().equals(input.id()));
-        if(notBelongCustomer){
+        Optional<DeliverAddress> addressSaved = customer.getAddresses().stream()
+                .filter(address -> address.getId().value().equals(input.id())).findFirst();
+        if(addressSaved.isEmpty()){
             throw new AddressNotBelongException("O endereço informado não pertence ao cliente");
         }
 
-        DeliverAddress deliverAddress = InputUpdateDeliverAddress.toDomain(input);
+        DeliverAddress deliverAddress = InputUpdateDeliverAddress.toDomain(input, addressSaved.get().isActive());
         DeliverAddress deliverAddressUpdated = repository.save(customer, deliverAddress);
         return OutputDeliverAddress.from(deliverAddressUpdated);
     }

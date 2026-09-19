@@ -75,7 +75,7 @@ public final class CustomerMapper {
                 entity.getZipcode(),
                 entity.getState(),
                 entity.getReference(),
-                entity.isMain()
+                entity.isActive()
         );
     }
 
@@ -94,8 +94,7 @@ public final class CustomerMapper {
                 domain.getZipcode().value(),
                 domain.getState(),
                 domain.getReference(),
-                domain.isActive(),
-                domain.isMain()
+                domain.isActive()
         );
     }
 }

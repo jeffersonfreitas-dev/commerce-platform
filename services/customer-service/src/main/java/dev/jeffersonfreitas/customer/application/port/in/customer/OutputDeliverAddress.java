@@ -1,10 +1,10 @@
 package dev.jeffersonfreitas.customer.application.port.in.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import dev.jeffersonfreitas.customer.domain.model.Customer;
 import dev.jeffersonfreitas.customer.domain.model.DeliverAddress;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public record OutputDeliverAddress(
     String id,
@@ -15,7 +15,7 @@ public record OutputDeliverAddress(
     String zipcode,
     String state,
     String reference,
-    boolean main
+    boolean active
 ) {
 
     public static List<OutputDeliverAddress> from(Customer customer) {
@@ -27,6 +27,6 @@ public record OutputDeliverAddress(
 
     public static OutputDeliverAddress from(DeliverAddress address){
         return new OutputDeliverAddress(address.getId().value(), address.getStreet(), address.getNumber(), 
-            address.getNeighborhood(), address.getCity(), address.getZipcode().value(), address.getState(), address.getReference(), address.isMain());
+            address.getNeighborhood(), address.getCity(), address.getZipcode().value(), address.getState(), address.getReference(), address.isActive());
     }
 }

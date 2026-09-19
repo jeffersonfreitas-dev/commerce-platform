@@ -9,12 +9,11 @@ public record InputCreateDeliverAddress(
     String city,
     String zipcode,
     String state,
-    String reference,
-    boolean main
+    String reference
 ) {
 
     public static DeliverAddress toDomain(InputCreateDeliverAddress address){
-        return new DeliverAddress(address.street, address.number, address.neighborhood, address.city, address.zipcode, address.state, address.reference, address.main);
+        return new DeliverAddress(address.street, address.number, address.neighborhood, address.city, address.zipcode, address.state, address.reference);
     }
 
 }

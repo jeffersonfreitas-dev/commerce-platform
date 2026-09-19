@@ -1,5 +1,6 @@
 package dev.jeffersonfreitas.customer.infra.config;
 
+import dev.jeffersonfreitas.customer.application.exception.DeliverAddressNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +20,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ProblemDetail handleCustomerNotFoundException(CustomerNotFoundException e){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Cliente não encontrado");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(DeliverAddressNotFoundException.class)
+    public ProblemDetail handleDeliverAddressNotFoundException(DeliverAddressNotFoundException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Endereço de entrega não encontrado");
         return problemDetail;
     }
 

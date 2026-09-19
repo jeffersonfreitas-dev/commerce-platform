@@ -1,5 +1,7 @@
 package dev.jeffersonfreitas.customer.infra.in.web.customer;
 
+import dev.jeffersonfreitas.customer.application.port.in.customer.active.UCDeliverAddressActive;
+import dev.jeffersonfreitas.customer.application.port.in.customer.active.UCDeliverAddressDeactive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +24,18 @@ public class CustomerController {
     private final UCGetCustomer getCustomerUseCase;
     private final UCUpdateDeliverAddress updateDeliverAddressUseCase;
     private final UCCreateDeliverAddress createDeliverAddress;
+    private final UCDeliverAddressActive ucDeliverAddressActive;
+    private final UCDeliverAddressDeactive ucDeliverAddressDeactive;
 
     public CustomerController(UCCreateCustomer createCustomerUseCase, UCGetCustomer getCustomerUseCase,
-                              UCUpdateDeliverAddress updateDeliverAddressUseCase, UCCreateDeliverAddress createDeliverAddress) {
+                              UCUpdateDeliverAddress updateDeliverAddressUseCase, UCCreateDeliverAddress createDeliverAddress,
+                              UCDeliverAddressActive ucDeliverAddressActive, UCDeliverAddressDeactive ucDeliverAddressDeactive) {
         this.createCustomerUseCase = createCustomerUseCase;
         this.getCustomerUseCase = getCustomerUseCase;
         this.updateDeliverAddressUseCase = updateDeliverAddressUseCase;
         this.createDeliverAddress = createDeliverAddress;
+        this.ucDeliverAddressActive = ucDeliverAddressActive;
+        this.ucDeliverAddressDeactive = ucDeliverAddressDeactive;
     }
 
     @PostMapping
@@ -40,14 +47,14 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseCustomer> get(@RequestParam String email){
+    public ResponseEntity<ResponseCustomer> get(@RequestParam(name = "email") String email){
         OutputCustomer output = getCustomerUseCase.execute(email);
         ResponseCustomer response = ResponseCustomer.from(output);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/address")
-    public ResponseEntity<ResponseDeliverAddress> update(@RequestParam String email, @RequestBody RequestUpdateDeliverAddress request){
+    public ResponseEntity<ResponseDeliverAddress> update(@RequestParam(name = "email") String email, @RequestBody RequestUpdateDeliverAddress request){
         InputUpdateDeliverAddress input = RequestUpdateDeliverAddress.toInput(request);
         OutputDeliverAddress output = updateDeliverAddressUseCase.execute(email, input);
         ResponseDeliverAddress response = ResponseDeliverAddress.from(output);
@@ -55,11 +62,23 @@ public class CustomerController {
     }
 
     @PostMapping("/address")
-    public ResponseEntity<ResponseDeliverAddress> createAddress(@RequestParam String email, @RequestBody RequestCreateDeliverAddress request){
+    public ResponseEntity<ResponseDeliverAddress> createAddress(@RequestParam(name = "email") String email, @RequestBody RequestCreateDeliverAddress request){
         InputCreateDeliverAddress input = RequestCreateDeliverAddress.toInput(request);
         OutputDeliverAddress output = createDeliverAddress.execute(email, input);
         ResponseDeliverAddress response = ResponseDeliverAddress.from(output);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PatchMapping("/address/{addressId}/activate")
+    public ResponseEntity<Void> active(@PathVariable(name = "addressId") String addressId,  @RequestParam(name = "email") String email){
+        ucDeliverAddressActive.execute(email, addressId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/address/{addressId}/deactivate")
+    public ResponseEntity<Void> deactive(@PathVariable(name = "addressId") String addressId, @RequestParam(name = "email") String email){
+        ucDeliverAddressDeactive.execute(email, addressId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

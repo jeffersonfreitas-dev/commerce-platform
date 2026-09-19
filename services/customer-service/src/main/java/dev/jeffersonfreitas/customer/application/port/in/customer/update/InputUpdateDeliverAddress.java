@@ -10,12 +10,13 @@ public record InputUpdateDeliverAddress(
     String city,
     String zipcode,
     String state,
-    String reference,
-    boolean main
+    String reference
 ) {
 
-    public static DeliverAddress toDomain(InputUpdateDeliverAddress address){
-        return new DeliverAddress(address.id, address.street, address.number, address.neighborhood, address.city, address.zipcode, address.state, address.reference, address.main);
+    public static DeliverAddress toDomain(InputUpdateDeliverAddress address, boolean active){
+        return new DeliverAddress(address.id, address.street, address.number, address.neighborhood, address.city, address.zipcode, address.state, address.reference, active);
     }
+
+
 
 }

@@ -41,14 +41,12 @@ public class EntityDeliverAddressJpa {
     @Column(nullable = false)
     private boolean active;
 
-    @Column(nullable = false)
-    private boolean main;
 
     @ManyToOne
     @JoinColumn(name = "customerId")
     private EntityCustomerJpa customer;
 
-    public EntityDeliverAddressJpa(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean active, boolean main) {
+    public EntityDeliverAddressJpa(String id, String street, String number, String neighborhood, String city, String zipcode, String state, String reference, boolean active) {
         this.id = id;
         this.street = street;
         this.number = number;
@@ -58,6 +56,5 @@ public class EntityDeliverAddressJpa {
         this.state = state;
         this.reference = reference;
         this.active = active;
-        this.main = main;
     }
 }

@@ -26,9 +26,27 @@ public class CreateCustomerService implements UCCreateCustomer {
         if(customerRepository.existsByEmail(input.email())){
             throw new CustomerAlreadyExistsException("O e-mail informado já foi cadastrado");
         }
-        DeliverAddress deliverAddress = InputCreateDeliverAddress.toDomain(input.address());
-        Customer customer = new Customer(input.name(), input.email(), input.birthdate(), deliverAddress);
+
+        Customer customer = getCustomer(input);
         Customer savedCustomer = customerRepository.save(customer);
         return OutputCustomer.from(savedCustomer);
+    }
+
+    private static Customer getCustomer(InputCreateCustomer input) {
+        if(input.address() == null){
+            throw new NullObjectException("O endereço de entrega não pode ser nulo");
+        }
+
+        InputCreateDeliverAddress inputAddress = input.address();
+        DeliverAddress deliverAddress = new DeliverAddress(
+                inputAddress.street(),
+                inputAddress.number(),
+                inputAddress.neighborhood(),
+                inputAddress.city(),
+                inputAddress.zipcode(),
+                inputAddress.state(),
+                inputAddress.reference()
+        );
+        return new Customer(input.name(), input.email(), input.birthdate(), deliverAddress);
     }
 }
