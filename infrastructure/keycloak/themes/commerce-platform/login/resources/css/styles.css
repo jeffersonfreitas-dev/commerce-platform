@@ -1,0 +1,522 @@
+/* ============================================================
+   ECOM THEME - Keycloak Login
+   ============================================================ */
+
+:root {
+    --ecom-primary: #2563eb;
+    --ecom-primary-hover: #1d4ed8;
+    --ecom-bg: #f8fafc;
+    --ecom-card: #ffffff;
+    --ecom-text: #0f172a;
+    --ecom-muted: #64748b;
+    --ecom-border: #cbd5e1;
+    --ecom-error: #dc2626;
+    --ecom-success: #16a34a;
+    --ecom-warning: #d97706;
+    --ecom-radius: 12px;
+    --ecom-radius-sm: 8px;
+    --ecom-navbar-h: 64px;
+    --ecom-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.18);
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body.ecom-body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(1200px 600px at 50% -20%, #dbeafe 0%, transparent 60%),
+        linear-gradient(135deg, #eff6ff 0%, #f8fafc 50%, #eef2ff 100%);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+    color: var(--ecom-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.ecom-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: var(--ecom-navbar-h);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+}
+
+.ecom-navbar__inner {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+}
+
+.ecom-navbar__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--ecom-text);
+}
+
+.ecom-navbar__logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.ecom-navbar__name {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+.ecom-main {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.ecom-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 36px 32px;
+    background: var(--ecom-card);
+    border: 1px solid rgba(203, 213, 225, 0.6);
+    border-radius: 16px;
+    box-shadow: var(--ecom-shadow);
+    animation: ecom-fade-in 0.35s ease-out;
+}
+
+@keyframes ecom-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.ecom-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.ecom-title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.ecom-subtitle {
+    margin: 8px 0 0;
+    color: var(--ecom-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   FORM
+   ============================================================ */
+.ecom-form { width: 100%; }
+
+.ecom-field { margin-bottom: 18px; }
+
+.ecom-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ecom-field input[type="text"],
+.ecom-field input[type="password"],
+.ecom-field input[type="email"] {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--ecom-border);
+    border-radius: var(--ecom-radius);
+    background: #ffffff;
+    color: var(--ecom-text);
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ecom-field input:focus {
+    border-color: var(--ecom-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.ecom-field input[aria-invalid="true"] {
+    border-color: var(--ecom-error);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.10);
+}
+
+.ecom-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.ecom-label-row label { margin: 0; }
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+.ecom-link {
+    color: var(--ecom-primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.ecom-link:hover {
+    color: var(--ecom-primary-hover);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   BOTÃO
+   ============================================================ */
+.ecom-actions { margin-top: 24px; }
+
+.ecom-button {
+    width: 100%;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: var(--ecom-radius);
+    background: var(--ecom-primary);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+.ecom-button:hover {
+    background: var(--ecom-primary-hover);
+    box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.5);
+}
+
+.ecom-button:active { transform: translateY(1px); }
+
+.ecom-button:focus-visible {
+    outline: 2px solid var(--ecom-primary);
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   CHECKBOX
+   ============================================================ */
+.ecom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--ecom-text);
+}
+
+.ecom-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--ecom-primary);
+    cursor: pointer;
+}
+
+.ecom-checkbox label { cursor: pointer; }
+
+/* ============================================================
+   REGISTER LINK
+   ============================================================ */
+.ecom-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 24px;
+    color: var(--ecom-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+/* ============================================================
+   ERROS / ALERTAS
+   ============================================================ */
+.ecom-error {
+    display: block;
+    margin-top: 6px;
+    color: var(--ecom-error);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.ecom-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    border-radius: var(--ecom-radius-sm);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ecom-alert__icon {
+    flex-shrink: 0;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.ecom-alert--error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.ecom-alert--success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.ecom-alert--warning {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: #92400e;
+}
+
+.ecom-alert--info {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+}
+
+/* ============================================================
+   INFO BOX
+   ============================================================ */
+.ecom-info {
+    margin-top: 20px;
+    padding: 12px 14px;
+    border-radius: var(--ecom-radius-sm);
+    background: #eff6ff;
+    color: #1e40af;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.ecom-footer {
+    flex-shrink: 0;
+    padding: 20px;
+    text-align: center;
+    color: var(--ecom-muted);
+    font-size: 12px;
+}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width: 600px) {
+    :root { --ecom-navbar-h: 56px; }
+
+    .ecom-navbar__inner { padding: 0 16px; }
+    .ecom-navbar__logo { width: 28px; height: 28px; }
+    .ecom-navbar__name { font-size: 15px; }
+
+    .ecom-main { padding: 24px 16px; }
+
+    .ecom-card {
+        padding: 28px 20px;
+        border-radius: 14px;
+    }
+
+    .ecom-title { font-size: 22px; }
+    .ecom-subtitle { font-size: 13px; margin-top: 6px; }
+    .ecom-header { margin-bottom: 22px; }
+}
+
+@media (max-width: 360px) {
+    .ecom-card { padding: 22px 16px; }
+    .ecom-title { font-size: 20px; }
+}
+
+/* Respeita preferências de acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .ecom-card { animation: none; }
+    * { transition: none !important; }
+}
+
+/* ============================================================
+   FORM ROW (dois campos lado a lado)
+   ============================================================ */
+.ecom-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+@media (max-width: 480px) {
+    .ecom-field-row { grid-template-columns: 1fr; gap: 0; }
+    .ecom-field-row .ecom-field { margin-bottom: 18px; }
+}
+
+/* ============================================================
+   BOTÃO GHOST (secundário)
+   ============================================================ */
+.ecom-button--ghost {
+    background: transparent;
+    color: var(--ecom-muted);
+    border: 1px solid var(--ecom-border);
+    margin-top: 10px;
+}
+
+.ecom-button--ghost:hover {
+    background: #f1f5f9;
+    color: var(--ecom-text);
+    box-shadow: none;
+}
+
+/* ============================================================
+   INPUT OTP
+   ============================================================ */
+.ecom-input-otp {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    padding-left: 0.5em; /* compensa o letter-spacing à direita */
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   OTP SETUP (QR Code)
+   ============================================================ */
+.ecom-otp-setup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.ecom-otp-qr {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    border: 1px solid var(--ecom-border);
+    background: #fff;
+    padding: 8px;
+}
+
+.ecom-code {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 8px;
+    background: #fff;
+    border: 1px solid var(--ecom-border);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    word-break: break-all;
+}
+
+.ecom-device-list {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    font-size: 13px;
+}
+
+.ecom-device-list li { margin-bottom: 2px; }
+
+/* ============================================================
+   ÍCONES (error / verify-email)
+   ============================================================ */
+.ecom-error-icon,
+.ecom-icon-circle {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.ecom-error-icon {
+    background: #fef2f2;
+    color: var(--ecom-error);
+}
+
+.ecom-icon-circle {
+    background: #eff6ff;
+    color: var(--ecom-primary);
+}
+
+.ecom-error-icon svg,
+.ecom-icon-circle svg {
+    width: 28px;
+    height: 28px;
+}
+
+.ecom-header--error .ecom-title {
+    color: var(--ecom-error);
+}
+
+/* ============================================================
+   TERMOS / RECAPTCHA
+   ============================================================ */
+.ecom-terms {
+    margin: 12px 0 4px;
+    align-items: flex-start;
+}
+
+.ecom-terms label { line-height: 1.4; }
+
+.ecom-recaptcha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0;
+}
+
+/* ============================================================
+   BOTÃO COMO LINK (para .ftl que usam <a class="ecom-button">)
+   ============================================================ */
+a.ecom-button {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}

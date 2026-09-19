@@ -1,0 +1,279 @@
+{
+  "realm": "commerce-platform",
+  "enabled": true,
+  "displayName": "Commerce Platform",
+  "displayNameHtml": "<strong>Commerce Platform</strong>",
+
+  "registrationAllowed": true,
+  "registrationEmailAsUsername": true,
+  "rememberMe": true,
+  "verifyEmail": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+
+  "sslRequired": "external",
+
+  "accessTokenLifespan": 1800,
+  "accessTokenLifespanForImplicitFlow": 900,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+
+  "passwordPolicy": "length(8) and notUsername(undefined) and notEmail(undefined) and upperCase(1) and lowerCase(1) and digits(1)",
+
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA1",
+  "otpPolicyInitialCounter": 0,
+  "otpPolicyDigits": 6,
+  "otpPolicyLookAheadWindow": 1,
+  "otpPolicyPeriod": 30,
+  "otpPolicyCodeReusable": false,
+
+  "roles": {
+    "realm": [
+      {
+        "name": "CUSTOMER",
+        "description": "Usuário cliente da plataforma",
+        "composite": false,
+        "clientRole": false
+      },
+      {
+        "name": "ADMIN",
+        "description": "Administrador da plataforma",
+        "composite": false,
+        "clientRole": false
+      }
+    ]
+  },
+
+  "clients": [
+    {
+      "clientId": "web",
+      "name": "Web",
+      "description": "Frontend Angular da plataforma",
+      "rootUrl": "http://localhost:4200",
+      "baseUrl": "http://localhost:4200",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "consentRequired": false,
+      "redirectUris": [
+        "http://localhost:4200/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:4200/*"
+      },
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles",
+        "customer"
+      ]
+    },
+    {
+      "clientId": "account-console",
+      "name": "${client_account-console}",
+      "rootUrl": "${authBaseUrl}",
+      "baseUrl": "/realms/commerce-platform/account/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "frontchannelLogout": true,
+      "consentRequired": false,
+      "redirectUris": [
+        "/realms/commerce-platform/account/*"
+      ],
+      "webOrigins": [],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "/realms/commerce-platform/account/*"
+      },
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles",
+        "web-origins",
+        "acr"
+      ]
+    }
+  ],
+
+  "clientScopes": [
+    {
+      "name": "customer",
+      "description": "Informações e permissões relacionadas ao customer",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "name": "customer-identity-id",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "access.token.claim": "true",
+            "id.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ]
+    }
+  ],
+
+  "defaultDefaultClientScopes": [
+    "openid",
+    "profile",
+    "email",
+    "roles",
+    "web-origins",
+    "acr"
+  ],
+
+  "components": {
+    "org.keycloak.userprofile.UserProfileProvider": [
+      {
+        "id": "7e3b9f2a-1c4d-4e5f-9a8b-0c1d2e3f4a5b",
+        "providerId": "declarative-user-profile",
+        "subComponents": {},
+        "config": {
+          "kc.user.profile.config": [
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"required\":{\"roles\":[\"user\"],\"scopes\":[]}},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"required\":{\"roles\":[\"user\"],\"scopes\":[]}},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"required\":{\"roles\":[],\"scopes\":[]}},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"required\":{\"roles\":[],\"scopes\":[]}}]}"
+          ]
+        }
+      }
+    ]
+  },
+
+  "smtpServer": {
+    "host": "mailpit",
+    "port": "1025",
+    "from": "no-reply@commerce-platform.local",
+    "fromDisplayName": "Commerce Platform",
+    "replyTo": "no-reply@commerce-platform.local",
+    "replyToDisplayName": "Commerce Platform",
+    "envelopeFrom": "",
+    "auth": "false",
+    "starttls": "false",
+    "ssl": "false"
+  },
+
+  "browserSecurityHeaders": {
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+    "xContentTypeOptions": "nosniff",
+    "xRobotsTag": "none",
+    "xFrameOptions": "SAMEORIGIN",
+    "contentSecurityPolicyReportOnly": "",
+    "strictTransportSecurity": "max-age=31536000; includeSubDomains"
+  },
+
+  "internationalizationEnabled": true,
+  "supportedLocales": [
+    "pt-BR",
+    "en"
+  ],
+  "defaultLocale": "pt-BR",
+
+  "loginTheme": "commerce-platform",
+  "accountTheme": "keycloak.v3",
+  "adminTheme": "keycloak.v3",
+  "emailTheme": "commerce-platform",
+
+  "eventsEnabled": true,
+  "eventsExpiration": 604800,
+  "eventsListeners": [
+    "jboss-logging"
+  ],
+
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": true,
+
+  "requiredActions": [
+    {
+      "alias": "CONFIGURE_TOTP",
+      "name": "Configure OTP",
+      "providerId": "CONFIGURE_TOTP",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 10,
+      "config": {}
+    },
+    {
+      "alias": "TERMS_AND_CONDITIONS",
+      "name": "Terms and Conditions",
+      "providerId": "TERMS_AND_CONDITIONS",
+      "enabled": false,
+      "defaultAction": false,
+      "priority": 20,
+      "config": {}
+    },
+    {
+      "alias": "UPDATE_PASSWORD",
+      "name": "Update Password",
+      "providerId": "UPDATE_PASSWORD",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 30,
+      "config": {}
+    },
+    {
+      "alias": "UPDATE_PROFILE",
+      "name": "Update Profile",
+      "providerId": "UPDATE_PROFILE",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 40,
+      "config": {}
+    },
+    {
+      "alias": "VERIFY_EMAIL",
+      "name": "Verify Email",
+      "providerId": "VERIFY_EMAIL",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 50,
+      "config": {}
+    },
+    {
+      "alias": "delete_account",
+      "name": "Delete Account",
+      "providerId": "delete_account",
+      "enabled": false,
+      "defaultAction": false,
+      "priority": 60,
+      "config": {}
+    },
+    {
+      "alias": "UPDATE_EMAIL",
+      "name": "Update Email",
+      "providerId": "UPDATE_EMAIL",
+      "enabled": true,
+      "defaultAction": false,
+      "priority": 70,
+      "config": {}
+    }
+  ]
+}
