@@ -42,6 +42,40 @@
         </#if>
 
         <div class="ecom-field">
+            <label for="firstName">${msg("firstName")}</label>
+            <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value="${(register.formData.firstName!'')}"
+                autocomplete="given-name"
+                placeholder="Seu nome"
+            />
+            <#if messagesPerField.existsError('firstName')>
+                <span class="ecom-error" role="alert">
+                    ${kcSanitize(messagesPerField.get('firstName'))?no_esc}
+                </span>
+            </#if>
+        </div>
+
+        <div class="ecom-field">
+            <label for="lastName">${msg("lastName")}</label>
+            <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value="${(register.formData.lastName!'')}"
+                autocomplete="family-name"
+                placeholder="Seu sobrenome"
+            />
+            <#if messagesPerField.existsError('lastName')>
+                <span class="ecom-error" role="alert">
+                    ${kcSanitize(messagesPerField.get('lastName'))?no_esc}
+                </span>
+            </#if>
+        </div>
+
+        <div class="ecom-field">
             <label for="email">${msg("email")}</label>
             <input
                 type="email"
