@@ -50,6 +50,31 @@
 
   "clients": [
     {
+      "clientId": "customer-service",
+      "name": "Customer Service",
+      "description": "API de clientes — autenticação machine-to-machine via Client Credentials",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "customer-service-secret",
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "protocol": "openid-connect",
+      "frontchannelLogout": false,
+      "consentRequired": false,
+      "fullScopeAllowed": false,
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
       "clientId": "web",
       "name": "Web",
       "description": "Frontend Angular da plataforma",
@@ -82,39 +107,6 @@
         "email",
         "roles",
         "customer"
-      ]
-    },
-    {
-      "clientId": "account-console",
-      "name": "${client_account-console}",
-      "rootUrl": "${authBaseUrl}",
-      "baseUrl": "/realms/commerce-platform/account/",
-      "surrogateAuthRequired": false,
-      "enabled": true,
-      "clientAuthenticatorType": "client-secret",
-      "publicClient": true,
-      "protocol": "openid-connect",
-      "standardFlowEnabled": true,
-      "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "frontchannelLogout": true,
-      "consentRequired": false,
-      "redirectUris": [
-        "/realms/commerce-platform/account/*"
-      ],
-      "webOrigins": [],
-      "attributes": {
-        "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "/realms/commerce-platform/account/*"
-      },
-      "defaultClientScopes": [
-        "openid",
-        "profile",
-        "email",
-        "roles",
-        "web-origins",
-        "acr"
       ]
     }
   ],

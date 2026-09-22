@@ -40,6 +40,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_HEALTH_ENABLED: "true"
       KC_METRICS_ENABLED: "true"
+      KC_IMPORT_STRATEGY: IGNORE_EXISTING
     ports:
       - "9000:8080"
     volumes:
