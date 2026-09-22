@@ -3,9 +3,9 @@ spring:
     name: customers-service
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mariadb://mariadb:3306/customer-api
+    username: customer-api
+    password: customer-api
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
