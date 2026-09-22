@@ -20,7 +20,7 @@ COPY --from=build /build/target/*.jar /app/app.jar
 RUN chown -R spring:spring /app
 
 USER 10001:10001
-EXPOSE 8080
+EXPOSE 8081
 
 ENV JAVA_TOOL_OPTIONS="-XX:MaxRAMPercentage=70 \
                        -XX:InitialRAMPercentage=20 \
