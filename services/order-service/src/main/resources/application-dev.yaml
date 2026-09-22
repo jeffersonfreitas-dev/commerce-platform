@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/commerce-platform
+          jwk-set-uri: http://keycloak:8080/realms/commerce-platform/protocol/openid-connect/certs
+      client:
+        registration:
+          keycloak:
+            client-id: customer-service
+            client-secret: ${KEYCLOAK_CLIENT_SECRET:}
+            authorization-grant-type: client_credentials
+            scope: openid, profile, email
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak:8080/realms/commerce-platform
+            token-uri: http://keycloak:8080/realms/commerce-platform/protocol/openid-connect/token
+

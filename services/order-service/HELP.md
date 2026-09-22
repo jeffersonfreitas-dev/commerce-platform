@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'dev.jeffersonfreitas.ecom-api' is invalid and this project uses 'dev.jeffersonfreitas.ecom_api' instead.
+* The original package name 'dev.jeffersonfreitas.ecom-api' is invalid and this project uses 'dev.jeffersonfreitas.order' instead.
 
 # Getting Started
 
