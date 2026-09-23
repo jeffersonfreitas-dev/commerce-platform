@@ -9,7 +9,7 @@ import java.util.List;
 
 public final class Order {
 
-    private final Identity uuid;
+    private Identity uuid;
     private final Identity customerId;
     private final Instant date;
     private final boolean active;
@@ -18,7 +18,6 @@ public final class Order {
     private final List<OrderItem> items;
 
     public Order(String customerId, List<OrderItem> items){
-        this.uuid = new Identity();
         this.customerId = new Identity(customerId);
         this.date = Instant.now();
         this.active = true;

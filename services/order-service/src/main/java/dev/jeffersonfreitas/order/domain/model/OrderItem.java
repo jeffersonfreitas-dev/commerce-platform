@@ -30,7 +30,7 @@ public class OrderItem {
     }
 
     public BigDecimal total() {
-        return total;
+        return BigDecimal.valueOf(this.quantity.value()).multiply(this.value);
     }
 
     public Identity uuid(){

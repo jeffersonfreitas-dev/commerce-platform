@@ -42,14 +42,14 @@ public class OrderController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<OrderResponse> get(@PathVariable String id){
+    public ResponseEntity<OrderResponse> get(@PathVariable(name = "id") String id){
         OrderOutput output = getOrderUseCase.execute(id);
         OrderResponse response = OrderResponse.from(output);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") String id){
         deleteOrderUseCase.execute(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

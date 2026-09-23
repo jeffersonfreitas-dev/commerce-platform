@@ -12,6 +12,9 @@ public final class Identity {
     }
 
     public Identity(String uuid){
+        if(uuid == null || uuid.isBlank()){
+            throw new InvalidValueObjectException("O código informado não pode ser nulo ou vazio");
+        }
         try{
             UUID.fromString(uuid);
             this.value = uuid;

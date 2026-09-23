@@ -33,7 +33,7 @@ public class OrderRepositoryInfra implements OrderRepository {
 
     @Override
     public Optional<Order> get(String id) {
-        return repository.findById(id).map(OrderMapper::toDomain);
+        return repository.findByIdAndItems(id).map(OrderMapper::toDomain);
     }
 
     @Override

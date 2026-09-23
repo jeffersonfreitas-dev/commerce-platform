@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 public record ProductResponse(
-        String name,
+        String uuid,
         String description,
         BigDecimal price,
         Instant createdAt,

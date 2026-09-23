@@ -2,11 +2,12 @@ package dev.jeffersonfreitas.order.application.service.order;
 
 import dev.jeffersonfreitas.order.application.exception.BusinessException;
 import dev.jeffersonfreitas.order.application.exception.OrderNotFoundException;
+import dev.jeffersonfreitas.order.application.port.in.order.CancelOrderUseCase;
 import dev.jeffersonfreitas.order.application.port.in.order.DeleteOrderUseCase;
 import dev.jeffersonfreitas.order.application.port.out.order.OrderRepository;
 import dev.jeffersonfreitas.order.domain.model.Order;
 
-public class CancelOrderService implements DeleteOrderUseCase{
+public class CancelOrderService implements CancelOrderUseCase {
 
     private final OrderRepository repository;
 

@@ -9,8 +9,8 @@ public class OrderSpecifications {
     public static Specification<OrderJpaEntity> from (OrderFilter filter){
         Specification<OrderJpaEntity> specification = null;
 
-        if(filter.id() != null){
-            specification = and(specification, idIs(filter.id()));
+        if(filter.uuid() != null){
+            specification = and(specification, idIs(filter.uuid()));
         }
 
         return specification;

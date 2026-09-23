@@ -5,7 +5,9 @@ import dev.jeffersonfreitas.order.domain.model.Order;
 import dev.jeffersonfreitas.order.domain.model.OrderItem;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class OrderMapper {
@@ -23,9 +25,10 @@ public class OrderMapper {
         if(order == null){
             throw new BusinessException("Dominio não pode ser nulo ao converter para a entidade");
         }
-        List<OrderItemJpaEntity> items = toEntityItem(order.uuid().value(), order.items());
+        String orderId = Objects.nonNull(order.uuid()) ? order.uuid().value() : null;
+        List<OrderItemJpaEntity> items = toEntityItem(orderId, order.items());
         return new OrderJpaEntity(
-                order.uuid().value(),
+                orderId,
                 order.customerId().value(),
                 order.date(),
                 order.active(),
@@ -37,7 +40,7 @@ public class OrderMapper {
     private static List<OrderItemJpaEntity> toEntityItem(String orderId, List<OrderItem> items) {
         return items.stream().map(item ->
                 new OrderItemJpaEntity(
-                        item.uuid().value(),
+                        Objects.nonNull(item.uuid()) ? item.uuid().value() : null,
                         orderId,
                         item.productId().value(),
                         item.quantity().value(),

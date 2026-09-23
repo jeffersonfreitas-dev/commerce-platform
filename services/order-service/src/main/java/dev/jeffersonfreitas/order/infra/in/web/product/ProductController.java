@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProductResponse> get(@PathVariable String id){
+    public ResponseEntity<ProductResponse> get(@PathVariable(name = "id") String id){
         ProductOutput output = getProductUseCase.execute(id);
         ProductResponse response = ProductResponse.from(output);
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -63,13 +63,13 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
+    public ResponseEntity<Void> delete(@PathVariable(name = "id") String id){
         deleteProductUseCase.execute(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProductResponse> update(@PathVariable String id, @RequestBody UpdateProductRequest request){
+    public ResponseEntity<ProductResponse> update(@PathVariable(name = "id") String id, @RequestBody UpdateProductRequest request){
         UpdateProductInput input = new UpdateProductInput(request.description(), request.price());
         ProductOutput output = updateProductUseCase.execute(id, input);
         ProductResponse response = ProductResponse.from(output);
