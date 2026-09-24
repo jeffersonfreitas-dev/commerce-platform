@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/utils")
+@RequestMapping("/public/utils")
 public class UtilsController {
 
     @GetMapping("/me")
