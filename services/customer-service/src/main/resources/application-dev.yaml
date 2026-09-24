@@ -7,7 +7,6 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://keycloak:8080/realms/commerce-platform
-          jwk-set-uri: http://keycloak:8080/realms/commerce-platform/protocol/openid-connect/certs
       client:
         registration:
           keycloak:
@@ -18,5 +17,3 @@ spring:
         provider:
           keycloak:
             issuer-uri: http://keycloak:8080/realms/commerce-platform
-            token-uri: http://keycloak:8080/realms/commerce-platform/protocol/openid-connect/token
-

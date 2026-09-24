@@ -1,4 +1,5 @@
 spring:
+  port: ${SERVER_PORT:8082}
   config:
     activate:
       on-profile: test
