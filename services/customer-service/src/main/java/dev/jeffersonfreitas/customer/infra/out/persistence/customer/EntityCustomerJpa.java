@@ -14,7 +14,16 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "customers")
+@Table(
+        name = "customers",
+        indexes = {
+            @Index(
+                name = "idx_customer_email",
+                columnList = "email",
+                unique = true
+            )
+        }
+)
 public class EntityCustomerJpa {
 
     @Id
