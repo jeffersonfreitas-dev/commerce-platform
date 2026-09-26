@@ -11,7 +11,7 @@ public class OrderSpecifications {
     public static Specification<OrderJpaEntity> from (OrderFilter filter){
         Specification<OrderJpaEntity> specification = null;
 
-        if(filter.uuid() != null && filter.uuid().isBlank()){
+        if(filter.uuid() != null && !filter.uuid().isBlank()){
             specification = and(specification, idIs(filter.uuid()));
         }
         if(filter.customerId() != null && !filter.customerId().isBlank()){

@@ -57,7 +57,7 @@ public final class Order {
     }
 
     public boolean isCancellable(){
-        return this.isDeletable() && this.status.equals(OrderStatus.PAYMENT_FAILED);
+        return this.isDeletable() || this.status.equals(OrderStatus.PAYMENT_FAILED);
     }
 
     public Identity uuid(){
