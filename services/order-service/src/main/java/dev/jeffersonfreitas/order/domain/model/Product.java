@@ -2,6 +2,7 @@ package dev.jeffersonfreitas.order.domain.model;
 
 import dev.jeffersonfreitas.order.domain.valueobject.Description;
 import dev.jeffersonfreitas.order.domain.valueobject.Identity;
+import dev.jeffersonfreitas.order.domain.valueobject.Name;
 import dev.jeffersonfreitas.order.domain.valueobject.Price;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.time.Instant;
 
 public class Product {
     private final Identity uuid;
+    private Name name;
     private Description description;
     private Price price;
     private boolean active;
@@ -16,8 +18,9 @@ public class Product {
     private Instant updatedAt;
 
 
-    public Product(String description, BigDecimal price){
+    public Product(String description, String name, BigDecimal price){
         this.uuid = new Identity();
+        this.name = new Name(name);
         this.description = new Description(description);
         this.price = new Price(price);
         this.createdAt = Instant.now();
@@ -25,8 +28,9 @@ public class Product {
         activated();
     }
 
-    public Product(String uuid, String description, BigDecimal price, Instant createdAt, Instant updatedAt){
+    public Product(String uuid, String name, String description, BigDecimal price, Instant createdAt, Instant updatedAt){
         this.uuid = new Identity(uuid);
+        this.name = new Name(name);
         this.description = new Description(description);
         this.price = new Price(price);
         this.createdAt = createdAt;
@@ -42,6 +46,9 @@ public class Product {
         this.active = updatedProduct.active;
     }
 
+    public String name(){
+        return this.name.value();
+    }
 
     public void activated(){
         this.active = true;

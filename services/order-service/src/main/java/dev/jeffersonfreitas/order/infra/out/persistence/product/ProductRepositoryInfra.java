@@ -2,7 +2,6 @@ package dev.jeffersonfreitas.order.infra.out.persistence.product;
 
 import dev.jeffersonfreitas.order.application.dto.PageGeneric;
 import dev.jeffersonfreitas.order.application.dto.PageableRequest;
-import dev.jeffersonfreitas.order.application.port.in.product.dto.ProductFilter;
 import dev.jeffersonfreitas.order.application.port.out.product.ProductRepository;
 import dev.jeffersonfreitas.order.domain.model.Product;
 import dev.jeffersonfreitas.order.infra.out.PageRequestMapper;
@@ -24,8 +23,8 @@ public class ProductRepositoryInfra implements ProductRepository {
     }
 
     @Override
-    public boolean existsByDescription(String description) {
-        return repository.existsByDescription(description);
+    public boolean existsByName(String name) {
+        return repository.existsByName(name);
     }
 
     @Override
@@ -41,10 +40,9 @@ public class ProductRepositoryInfra implements ProductRepository {
     }
 
     @Override
-    public PageGeneric<Product> getAll(ProductFilter filter, PageableRequest pageableInput) {
+    public PageGeneric<Product> getAll(String filter, PageableRequest pageableInput) {
         Pageable pageable = PageRequestMapper.toSpring(pageableInput);
-        Specification<ProductJpaEntity> entitySpecification = ProductSpecifications.from(filter);
-        Page<ProductJpaEntity> products = repository.findAll(entitySpecification, pageable);
+        Page<ProductJpaEntity> products = repository.search(filter, pageable);
         List<Product> productList = products.stream().map(ProductMapper::toDomain).toList();
         return new PageGeneric<>(
                 productList,

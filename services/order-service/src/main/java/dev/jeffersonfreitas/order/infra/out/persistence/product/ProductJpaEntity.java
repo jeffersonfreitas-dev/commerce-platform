@@ -21,7 +21,10 @@ public class ProductJpaEntity {
     @Id
     private String id;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 100)
+    private String name;
+
+    @Column(nullable = false, length = 300)
     private String description;
 
     @Column(nullable = false)

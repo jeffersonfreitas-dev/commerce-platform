@@ -5,7 +5,6 @@ import dev.jeffersonfreitas.order.application.dto.PageableRequest;
 import dev.jeffersonfreitas.order.application.dto.SortOrder;
 import dev.jeffersonfreitas.order.application.port.in.product.*;
 import dev.jeffersonfreitas.order.application.port.in.product.dto.CreateProductInput;
-import dev.jeffersonfreitas.order.application.port.in.product.dto.ProductFilter;
 import dev.jeffersonfreitas.order.application.port.in.product.dto.ProductOutput;
 import dev.jeffersonfreitas.order.application.port.in.product.dto.UpdateProductInput;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +38,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> create(@RequestBody CreateProductRequest request){
-        CreateProductInput input = new CreateProductInput(request.description(), request.price());
+        CreateProductInput input = new CreateProductInput(request.description(), request.name(), request.price());
         ProductOutput output = createProductUseCase.execute(input);
         ProductResponse response = ProductResponse.from(output);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -53,11 +52,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<PageGeneric<ProductResponse>> getAll(@PageableDefault(size = 20, sort = "description", direction = Sort.Direction.ASC)
-                                                                   Pageable pageable, ProductFilter filter){
-        List<SortOrder> sort = pageable.getSort().stream().map(o -> new SortOrder(o.getProperty(), o.getDirection().name())).toList();
-        PageableRequest pageableRequest = PageableRequest.create(pageable.getPageNumber(), pageable.getPageSize(), sort);
-        PageGeneric<ProductOutput> productOutput = getAllProductUseCase.execute(filter, pageableRequest);
+    public ResponseEntity<PageGeneric<ProductResponse>> getAll(
+            @RequestParam(name = "text") String text,
+            @RequestParam(defaultValue = "0", name = "page") int page,
+            @RequestParam(defaultValue = "20", name = "size") int size
+    ){
+        PageableRequest pageableRequest = PageableRequest.create(page, size);
+        PageGeneric<ProductOutput> productOutput = getAllProductUseCase.execute(text, pageableRequest);
         PageGeneric<ProductResponse> response = productOutput.map(ProductResponse::from);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

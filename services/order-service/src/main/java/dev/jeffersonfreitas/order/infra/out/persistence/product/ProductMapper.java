@@ -15,6 +15,7 @@ public final class ProductMapper {
         }
         return new ProductJpaEntity(
                 product.uuid(),
+                product.name(),
                 product.description(),
                 product.price(),
                 product.createdAt(),
@@ -28,6 +29,7 @@ public final class ProductMapper {
         }
         return new Product(
                 entity.getId(),
+                entity.getName(),
                 entity.getDescription(),
                 entity.getPrice(),
                 entity.getCreatedAt(),

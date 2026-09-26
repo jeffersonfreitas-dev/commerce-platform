@@ -7,6 +7,7 @@ import java.time.Instant;
 
 public record ProductOutput(
         String uuid,
+        String name,
         String description,
         BigDecimal price,
         Instant createdAt,
@@ -15,6 +16,7 @@ public record ProductOutput(
     public static ProductOutput from(Product product) {
         return new ProductOutput(
                 product.uuid(),
+                product.name(),
                 product.description(),
                 product.price(),
                 product.createdAt(),
