@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 public class OrderItemJpaEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     @Column(name = "productId", nullable = false, length = 60)
@@ -37,11 +38,12 @@ public class OrderItemJpaEntity {
         return BigDecimal.valueOf(quantity).multiply(total);
     }
 
-    public OrderItemJpaEntity(String id, String orderId, String productId, double quantity, BigDecimal value, BigDecimal total){
+    public OrderItemJpaEntity(String id, OrderJpaEntity order, String productId, double quantity, BigDecimal value, BigDecimal total){
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
         this.value = value;
         this.total = total;
+        this.order = order;
     }
 }

@@ -7,14 +7,13 @@ import java.math.BigDecimal;
 
 public class OrderItem {
 
-    private final Identity uuid;
+    private Identity uuid;
     private final Identity productId;
     private final Quantity quantity;
     private final BigDecimal value;
     private final BigDecimal total;
 
     public OrderItem(String productId, double quantity, BigDecimal value){
-        this.uuid = new Identity();
         this.productId = new Identity(productId);
         this.quantity = new Quantity(quantity);
         this.value = value;

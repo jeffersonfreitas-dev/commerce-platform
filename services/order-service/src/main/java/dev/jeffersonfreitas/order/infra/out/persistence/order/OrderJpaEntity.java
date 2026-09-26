@@ -38,4 +38,12 @@ public class OrderJpaEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItemJpaEntity> items;
 
+    public OrderJpaEntity(String orderId, String customerId, Instant date, boolean active, BigDecimal total, String status) {
+        this.id = orderId;
+        this.customerId = customerId;
+        this.date = date;
+        this.active = active;
+        this.total = total;
+        this.status = status;
+    }
 }

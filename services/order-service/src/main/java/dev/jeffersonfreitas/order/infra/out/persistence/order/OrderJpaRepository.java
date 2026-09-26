@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface OrderJpaRepository extends JpaRepository<OrderJpaEntity, String>, JpaSpecificationExecutor<OrderJpaEntity> {
 
-    @Query("SELECT o FROM OrderJpaEntity o join fetch o.items i WHERE o.id = :id")
+    @Query("SELECT o FROM OrderJpaEntity o left join fetch o.items i WHERE o.id = :id")
     Optional<OrderJpaEntity> findByIdAndItems(@Param("id") String id);
 }
