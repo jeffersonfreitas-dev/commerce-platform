@@ -74,6 +74,31 @@
       "optionalClientScopes": []
     },
     {
+      "clientId": "order-service",
+      "name": "Order Service",
+      "description": "API de pedidos — autenticação machine-to-machine via Client Credentials",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "order-service-secret",
+      "publicClient": false,
+      "bearerOnly": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "protocol": "openid-connect",
+      "frontchannelLogout": false,
+      "consentRequired": false,
+      "fullScopeAllowed": false,
+      "defaultClientScopes": [
+        "openid",
+        "profile",
+        "email",
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },    
+    {
       "clientId": "web",
       "name": "Web",
       "description": "Frontend Angular da plataforma",

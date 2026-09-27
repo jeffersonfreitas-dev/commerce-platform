@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -20,11 +21,11 @@ public class OrderJpaEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-    @Column(name = "customerId", nullable = false, length = 60)
+    @Column(name = "customer_id", nullable = false, length = 60)
     private String customerId;
 
     @Column(nullable = false)
-    private Instant date;
+    private LocalDate date;
 
     @Column(nullable = false)
     private boolean active;
@@ -38,7 +39,7 @@ public class OrderJpaEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItemJpaEntity> items;
 
-    public OrderJpaEntity(String orderId, String customerId, Instant date, boolean active, BigDecimal total, String status) {
+    public OrderJpaEntity(String orderId, String customerId, LocalDate date, boolean active, BigDecimal total, String status) {
         this.id = orderId;
         this.customerId = customerId;
         this.date = date;

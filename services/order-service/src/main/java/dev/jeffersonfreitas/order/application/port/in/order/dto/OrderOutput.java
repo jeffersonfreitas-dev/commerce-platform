@@ -5,12 +5,13 @@ import dev.jeffersonfreitas.order.domain.model.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 public record OrderOutput(
         String uuid,
         String customerId,
-        Instant date,
+        LocalDate date,
         BigDecimal total,
         OrderStatus status,
         List<OrderItemOutput> items

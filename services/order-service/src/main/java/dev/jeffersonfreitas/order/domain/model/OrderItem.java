@@ -13,14 +13,14 @@ public class OrderItem {
     private final BigDecimal value;
     private final BigDecimal total;
 
-    public OrderItem(String productId, double quantity, BigDecimal value){
+    public OrderItem(String productId, BigDecimal quantity, BigDecimal value){
         this.productId = new Identity(productId);
         this.quantity = new Quantity(quantity);
         this.value = value;
-        this.total = BigDecimal.valueOf(quantity).multiply(value);
+        this.total = quantity.multiply(value);
     }
 
-    public OrderItem(String uuid, String productId, double quantity, BigDecimal value, BigDecimal total){
+    public OrderItem(String uuid, String productId, BigDecimal quantity, BigDecimal value, BigDecimal total){
         this.uuid = new Identity(uuid);
         this.productId = new Identity(productId);
         this.quantity = new Quantity(quantity);
@@ -29,7 +29,7 @@ public class OrderItem {
     }
 
     public BigDecimal total() {
-        return BigDecimal.valueOf(this.quantity.value()).multiply(this.value);
+        return this.quantity.value().multiply(this.value);
     }
 
     public Identity uuid(){

@@ -8,7 +8,7 @@ import java.util.List;
 public record OrderItemOutput(
         String uuid,
         String productId,
-        double quantity,
+        BigDecimal quantity,
         BigDecimal value,
         BigDecimal total
 ) {

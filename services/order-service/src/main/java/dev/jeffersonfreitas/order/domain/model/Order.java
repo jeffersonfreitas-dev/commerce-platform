@@ -1,17 +1,19 @@
 package dev.jeffersonfreitas.order.domain.model;
 
 import dev.jeffersonfreitas.order.application.exception.BusinessException;
+import dev.jeffersonfreitas.order.domain.valueobject.CurrentDate;
 import dev.jeffersonfreitas.order.domain.valueobject.Identity;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 public final class Order {
 
     private Identity uuid;
     private final Identity customerId;
-    private final Instant date;
+    private final CurrentDate date;
     private final boolean active;
     private final BigDecimal total;
     private OrderStatus status;
@@ -19,17 +21,17 @@ public final class Order {
 
     public Order(String customerId, List<OrderItem> items){
         this.customerId = new Identity(customerId);
-        this.date = Instant.now();
+        this.date = new CurrentDate();
         this.active = true;
         this.items = addItems(items);
         this.status = OrderStatus.CREATED;
         this.total = calculateTotal(items);
     }
 
-    public Order(String uuid, String customerId, Instant date, boolean active, BigDecimal total, String status, List<OrderItem> items){
+    public Order(String uuid, String customerId, LocalDate date, boolean active, BigDecimal total, String status, List<OrderItem> items){
         this.uuid = new Identity(uuid);
         this.customerId = new Identity(customerId);
-        this.date = date;
+        this.date = new CurrentDate(date);
         this.active = active;
         this.total = total;
         this.status = OrderStatus.from(status);
@@ -68,8 +70,8 @@ public final class Order {
         return this.customerId;
     }
 
-    public Instant date(){
-        return this.date;
+    public LocalDate date(){
+        return this.date.value();
     }
 
     public boolean active(){

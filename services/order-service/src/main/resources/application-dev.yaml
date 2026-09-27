@@ -3,12 +3,15 @@ spring:
     activate:
       on-profile: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/commerce
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://order-db:5432/${ORDER_DB_NAME}
+    username: ${ORDER_DB_USERNAME}
+    password: ${ORDER_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
     open-in-view: false
@@ -26,8 +29,8 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: customer-service
-            client-secret: ${KEYCLOAK_CLIENT_SECRET:}
+            client-id: order-service
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
             authorization-grant-type: client_credentials
             scope: openid, profile, email
         provider:

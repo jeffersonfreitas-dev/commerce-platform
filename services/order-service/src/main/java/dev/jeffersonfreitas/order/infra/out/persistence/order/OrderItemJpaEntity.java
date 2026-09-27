@@ -18,27 +18,27 @@ public class OrderItemJpaEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
-    @Column(name = "productId", nullable = false, length = 60)
+    @Column(name = "product_id", nullable = false, length = 60)
     private String productId;
 
     @Column(nullable = false)
-    private double quantity;
+    private BigDecimal quantity;
 
     @Column(name = "unit_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal value;
 
     @ManyToOne
-    @JoinColumn(name = "orderId")
+    @JoinColumn(name = "order_id")
     private OrderJpaEntity order;
 
     @Transient
     private BigDecimal total;
 
     public BigDecimal getTotal(){
-        return BigDecimal.valueOf(quantity).multiply(total);
+        return quantity.multiply(total);
     }
 
-    public OrderItemJpaEntity(String id, OrderJpaEntity order, String productId, double quantity, BigDecimal value, BigDecimal total){
+    public OrderItemJpaEntity(String id, OrderJpaEntity order, String productId, BigDecimal quantity, BigDecimal value, BigDecimal total){
         this.id = id;
         this.productId = productId;
         this.quantity = quantity;
