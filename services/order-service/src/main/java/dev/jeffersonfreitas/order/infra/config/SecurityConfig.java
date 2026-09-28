@@ -12,6 +12,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    private String issuerUri;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http){
         http
@@ -19,7 +22,21 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/public/**", "/actuator/health").permitAll()
                         .anyRequest().authenticated()
-                ).oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                ).oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())));
         return http.build();
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder(){
+        NimbusJwtDecoder decoder = JwtDecoders.fromIssuerLocation(issuerUrl);
+        OAuth2TokenValidator<Jwt> serviceValidator = jwt -> {
+            String azp = jwt.getClaimAsString("azp");
+            if (!"order-service".equals(azp)) {
+                return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_token"));
+            }
+            return OAuth2TokenValidatorResult.success();
+        };
+        decoder.setJwtValidator(serviceValidator);
+        return decoder;
     }
 }
