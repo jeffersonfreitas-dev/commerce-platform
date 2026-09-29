@@ -28,6 +28,13 @@ spring:
           jwk-set-uri: http://keycloak:8080/realms/commerce-platform/protocol/openid-connect/certs
       client:
         registration:
+          customer-service:
+            provider: keycloak
+            client_id: order-service
+            client-secret: ${KEYCLOAK_CLIENT_SECRET}
+            authorization-grant-type: client_credentials
+            scope:
+              - openid
           keycloak:
             client-id: order-service
             client-secret: ${KEYCLOAK_CLIENT_SECRET}
