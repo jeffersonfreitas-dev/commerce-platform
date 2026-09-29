@@ -11,4 +11,7 @@ public interface RepositoryCustomerJpa extends JpaRepository<EntityCustomerJpa, 
 
     @Query ("SELECT c FROM EntityCustomerJpa c join fetch c.address a where c.email = :email" )
     Optional<EntityCustomerJpa> findByEmail(@Param("email") String email);
+
+    @Query ("SELECT c FROM EntityCustomerJpa c join fetch c.address a where c.id = :id" )
+    Optional<EntityCustomerJpa> findByIdAndAddresses(@Param("id") String id);
 }

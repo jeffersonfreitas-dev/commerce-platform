@@ -1,6 +1,7 @@
 package dev.jeffersonfreitas.order.infra.in.web.order;
 
 import dev.jeffersonfreitas.order.application.port.in.order.*;
+import dev.jeffersonfreitas.order.application.port.out.customerservice.CustomerGateway;
 import dev.jeffersonfreitas.order.application.port.out.order.OrderRepository;
 import dev.jeffersonfreitas.order.application.port.out.product.ProductRepository;
 import dev.jeffersonfreitas.order.application.service.order.*;
@@ -11,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class OrderConfig {
 
     @Bean
-    CreateOrderUseCase createOrderUseCase(OrderRepository repository, ProductRepository productRepository){
-        return new CreateOrderService(repository, productRepository);
+    CreateOrderUseCase createOrderUseCase(OrderRepository repository, ProductRepository productRepository, CustomerGateway customerGateway){
+        return new CreateOrderService(repository, productRepository, customerGateway);
     }
     @Bean
     GetOrderUseCase getOrderUseCase(OrderRepository repository){

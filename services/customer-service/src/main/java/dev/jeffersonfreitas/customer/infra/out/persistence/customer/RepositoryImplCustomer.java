@@ -31,4 +31,9 @@ public class RepositoryImplCustomer implements CustomerRepository {
     public Optional<Customer> getByEmail(String email) {
         return customerJpaRepository.findByEmail(email).map(CustomerMapper::toDomain);
     }
+
+    @Override
+    public Optional<Customer> getById(String id) {
+        return customerJpaRepository.findByIdAndAddresses(id).map(CustomerMapper::toDomain);
+    }
 }

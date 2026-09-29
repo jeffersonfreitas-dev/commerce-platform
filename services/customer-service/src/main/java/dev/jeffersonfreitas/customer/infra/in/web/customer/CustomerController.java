@@ -2,6 +2,7 @@ package dev.jeffersonfreitas.customer.infra.in.web.customer;
 
 import dev.jeffersonfreitas.customer.application.port.in.customer.active.UCDeliverAddressActive;
 import dev.jeffersonfreitas.customer.application.port.in.customer.active.UCDeliverAddressDeactive;
+import dev.jeffersonfreitas.customer.application.port.in.customer.get.UCGetByIdCustomer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,16 +27,19 @@ public class CustomerController {
     private final UCCreateDeliverAddress createDeliverAddress;
     private final UCDeliverAddressActive ucDeliverAddressActive;
     private final UCDeliverAddressDeactive ucDeliverAddressDeactive;
+    private final UCGetByIdCustomer ucGetByIdCustomer;
 
     public CustomerController(UCCreateCustomer createCustomerUseCase, UCGetCustomer getCustomerUseCase,
                               UCUpdateDeliverAddress updateDeliverAddressUseCase, UCCreateDeliverAddress createDeliverAddress,
-                              UCDeliverAddressActive ucDeliverAddressActive, UCDeliverAddressDeactive ucDeliverAddressDeactive) {
+                              UCDeliverAddressActive ucDeliverAddressActive, UCDeliverAddressDeactive ucDeliverAddressDeactive,
+                              UCGetByIdCustomer ucGetByIdCustomer) {
         this.createCustomerUseCase = createCustomerUseCase;
         this.getCustomerUseCase = getCustomerUseCase;
         this.updateDeliverAddressUseCase = updateDeliverAddressUseCase;
         this.createDeliverAddress = createDeliverAddress;
         this.ucDeliverAddressActive = ucDeliverAddressActive;
         this.ucDeliverAddressDeactive = ucDeliverAddressDeactive;
+        this.ucGetByIdCustomer = ucGetByIdCustomer;
     }
 
     @PostMapping
@@ -49,6 +53,13 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<ResponseCustomer> get(@RequestParam(name = "email") String email){
         OutputCustomer output = getCustomerUseCase.execute(email);
+        ResponseCustomer response = ResponseCustomer.from(output);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseCustomer> getById(@PathVariable(name = "id") String id){
+        OutputCustomer output = ucGetByIdCustomer.execute(id);
         ResponseCustomer response = ResponseCustomer.from(output);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }

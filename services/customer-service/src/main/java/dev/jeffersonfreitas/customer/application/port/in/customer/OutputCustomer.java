@@ -6,6 +6,7 @@ import java.util.List;
 import dev.jeffersonfreitas.customer.domain.model.Customer;
 
 public record OutputCustomer(
+        String id,
         String name,
         String email,
         LocalDate birthdate,
@@ -14,6 +15,7 @@ public record OutputCustomer(
     public static OutputCustomer from(Customer customer) {
         List<OutputDeliverAddress> addresses = OutputDeliverAddress.from(customer);
         return new OutputCustomer(
+                customer.getId().value(),
                 customer.getName().value(),
                 customer.getEmail().value(),
                 customer.getBirthdate().value(),

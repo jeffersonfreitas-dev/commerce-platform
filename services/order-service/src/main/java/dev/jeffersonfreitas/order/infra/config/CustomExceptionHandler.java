@@ -1,9 +1,6 @@
 package dev.jeffersonfreitas.order.infra.config;
 
-import dev.jeffersonfreitas.order.application.exception.BusinessException;
-import dev.jeffersonfreitas.order.application.exception.OrderNotFoundException;
-import dev.jeffersonfreitas.order.application.exception.ProductNotBeDeletedException;
-import dev.jeffersonfreitas.order.application.exception.ProductNotFoundException;
+import dev.jeffersonfreitas.order.application.exception.*;
 import dev.jeffersonfreitas.order.domain.exception.InvalidValueObjectException;
 import dev.jeffersonfreitas.order.domain.exception.ProductAlreadyExistsException;
 import org.springframework.http.HttpStatus;
@@ -19,6 +16,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ProblemDetail handleProductNotFoundException(ProductNotFoundException e){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
         problemDetail.setTitle("Produto não encontrado");
+        return problemDetail;
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ProblemDetail handleCustomerNotFoundException(CustomerNotFoundException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage());
+        problemDetail.setTitle("Cliente não encontrado");
         return problemDetail;
     }
 

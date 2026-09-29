@@ -6,6 +6,8 @@ import dev.jeffersonfreitas.order.application.port.in.order.CreateOrderUseCase;
 import dev.jeffersonfreitas.order.application.port.in.order.dto.CreateOrderInput;
 import dev.jeffersonfreitas.order.application.port.in.order.dto.CreateOrderItemInput;
 import dev.jeffersonfreitas.order.application.port.in.order.dto.OrderOutput;
+import dev.jeffersonfreitas.order.application.port.out.customerservice.CustomerGateway;
+import dev.jeffersonfreitas.order.application.port.out.customerservice.CustomerOutput;
 import dev.jeffersonfreitas.order.application.port.out.order.OrderRepository;
 import dev.jeffersonfreitas.order.application.port.out.product.ProductRepository;
 import dev.jeffersonfreitas.order.domain.model.Order;
@@ -17,10 +19,12 @@ public class CreateOrderService implements CreateOrderUseCase {
 
     private final OrderRepository repository;
     private final ProductRepository productRepository;
+    private final CustomerGateway customerGateway;
 
-    public CreateOrderService(OrderRepository repository, ProductRepository productRepository) {
+    public CreateOrderService(OrderRepository repository, ProductRepository productRepository, CustomerGateway customerGateway) {
         this.repository = repository;
         this.productRepository = productRepository;
+        this.customerGateway = customerGateway;
     }
 
     @Override
@@ -29,7 +33,7 @@ public class CreateOrderService implements CreateOrderUseCase {
             throw new BusinessException("O input de pedido não pode ser nulo");
         }
 
-        //TODO: validar o customerId via customer-service
+        customerGateway.findById(input.customerId());
 
         List<OrderItem> items = addAndValidateItems(input.itemInputs());
         Order order = new Order(input.customerId(), items);

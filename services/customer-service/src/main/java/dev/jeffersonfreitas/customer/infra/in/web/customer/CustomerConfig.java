@@ -4,6 +4,7 @@ import dev.jeffersonfreitas.customer.application.port.in.customer.active.UCDeliv
 import dev.jeffersonfreitas.customer.application.port.in.customer.active.UCDeliverAddressDeactive;
 import dev.jeffersonfreitas.customer.application.port.in.customer.create.UCCreateCustomer;
 import dev.jeffersonfreitas.customer.application.port.in.customer.create.UCCreateDeliverAddress;
+import dev.jeffersonfreitas.customer.application.port.in.customer.get.UCGetByIdCustomer;
 import dev.jeffersonfreitas.customer.application.port.in.customer.get.UCGetCustomer;
 import dev.jeffersonfreitas.customer.application.port.in.customer.update.UCUpdateDeliverAddress;
 import dev.jeffersonfreitas.customer.application.port.out.customer.CustomerRepository;
@@ -43,5 +44,10 @@ public class CustomerConfig {
     @Bean
     UCDeliverAddressDeactive ucDeliverAddressDeactive(DeliverAddressRepository repository, CustomerRepository customerRepository){
         return new DeactiveDeliverAddressService(repository, customerRepository);
+    }
+
+    @Bean
+    UCGetByIdCustomer ucGetByIdCustomer(CustomerRepository customerRepository){
+        return new GetByIdCustomerService(customerRepository);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import dev.jeffersonfreitas.customer.application.port.in.customer.OutputCustomer;
 
 public record ResponseCustomer(
+        String id,
         String name,
         String email,
         LocalDate birthdate,
@@ -14,6 +15,6 @@ public record ResponseCustomer(
 
     public static ResponseCustomer from(OutputCustomer output) {
         List<ResponseDeliverAddress> deliverAddresses = ResponseDeliverAddress.from(output.addresses());
-        return new ResponseCustomer(output.name(), output.email(), output.birthdate(), deliverAddresses);
+        return new ResponseCustomer(output.id(), output.name(), output.email(), output.birthdate(), deliverAddresses);
     }
 }
