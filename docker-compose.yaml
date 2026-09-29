@@ -2,3 +2,4 @@ include:
   - infrastructure/keycloak/docker-compose.yaml
   - services/customer-service/docker-compose.yaml
   - services/order-service/docker-compose.yaml
+  - frontend/docker-compose.yaml
