@@ -13,8 +13,8 @@ services:
     depends_on:
       customer-service: 
         condition: service_healthy
-      order-service:
-        condition: service_healthy
+      # order-service:
+      #   condition: service_healthy
       keycloak:
         condition: service_healthy        
 

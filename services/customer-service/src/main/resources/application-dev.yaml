@@ -2,18 +2,18 @@ spring:
   config:
     activate:
       on-profile: dev
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://keycloak:8080/realms/commerce-platform
-      client:
-        registration:
-          keycloak:
-            client-id: customer-service
-            client-secret: ${KEYCLOAK_CLIENT_SECRET:}
-            authorization-grant-type: client_credentials
-            scope: openid, profile, email
-        provider:
-          keycloak:
-            issuer-uri: http://keycloak:8080/realms/commerce-platform
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://keycloak:8080/realms/commerce-platform
+#      client:
+#        registration:
+#          keycloak:
+#            client-id: customer-service
+#            client-secret: ${KEYCLOAK_CLIENT_SECRET:}
+#            authorization-grant-type: client_credentials
+#            scope: openid, profile, email
+#        provider:
+#          keycloak:
+#            issuer-uri: http://keycloak:8080/realms/commerce-platform

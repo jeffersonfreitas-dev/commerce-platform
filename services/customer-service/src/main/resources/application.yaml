@@ -39,3 +39,9 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
     org.springframework.security.oauth2.server.resource: TRACE
+
+keycloak:
+  base-url: http://keycloak:8080
+  realm: commerce-platform
+  client-id: customer-service
+  scope: "openid"

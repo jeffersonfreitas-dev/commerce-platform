@@ -47,6 +47,8 @@ services:
       - backend
       - application
     read_only: true
+    extra_hosts:
+      - "localhost:host-gateway"
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=64m
     security_opt:
