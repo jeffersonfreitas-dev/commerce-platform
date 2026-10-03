@@ -39,6 +39,8 @@ services:
     depends_on:
       order-db:
         condition: service_healthy
+      customer-service:
+        condition: service_healthy
       keycloak:
         condition: service_healthy
     ports:
@@ -47,8 +49,6 @@ services:
       - backend
       - application
     read_only: true
-    extra_hosts:
-      - "localhost:host-gateway"
     tmpfs:
       - /tmp:rw,noexec,nosuid,size=64m
     security_opt:

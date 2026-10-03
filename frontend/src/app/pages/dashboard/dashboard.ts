@@ -53,12 +53,12 @@ export class DashboardComponent {
     this.email.set(parsed?.email);
     this.subject.set(parsed?.sub);
     this.realmRoles.set(parsed?.realm_access?.roles ?? []);
-    this.tokenPreview.set((this.keycloak.token ?? '').substring(0, 80) + '...');
+    this.tokenPreview.set(this.keycloak.token ?? '');
   }
 
   logout(): void {
     this.keycloak.logout({
-      redirectUri: window.location.origin + '/'
+      redirectUri: 'http://localhost:4200'
     });
   }
 }

@@ -11,7 +11,7 @@ const isAccessAllowed = async (
 
   if (!authenticated) {
     await keycloak.login({
-      redirectUri: window.location.origin + state.url
+      redirectUri: 'http://localhost:4200' + state.url
     });
     return false;
   }

@@ -41,13 +41,13 @@ export class HomeComponent {
 
   login(): void {
     this.keycloak.login({
-      redirectUri: window.location.origin + '/'
+      redirectUri: 'http://localhost:4200'
     });
   }
 
   logout(): void {
     this.keycloak.logout({
-      redirectUri: window.location.origin + '/'
+      redirectUri: 'http://localhost:4200'
     });
   }
 }

@@ -7,14 +7,14 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideKeycloak({
       config: {
-        url: 'http://localhost:8080',
+        url: 'http://keycloak:8080',
         realm: 'commerce-platform',
         clientId: 'web'
       },
       initOptions: {
         onLoad: 'check-sso',
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
-        redirectUri: window.location.origin + '/',
+        silentCheckSsoRedirectUri: 'http://localhost:4200/silent-check-sso.html',
+        redirectUri: 'http://localhost:4200',
         pkceMethod: 'S256'
       }            
     }),

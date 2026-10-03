@@ -45,10 +45,10 @@ public class SecurityConfig {
         NimbusJwtDecoder decoder = JwtDecoders.fromIssuerLocation(issuerUri);
         OAuth2TokenValidator<Jwt> serviceValidator = jwt -> {
             String azp = jwt.getClaimAsString("azp");
-            if (!"order-service".equals(azp)) {
-                return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_token"));
+            if("customer-service".equals(azp) || "web".equals(azp)){
+                return OAuth2TokenValidatorResult.success();
             }
-            return OAuth2TokenValidatorResult.success();
+            return OAuth2TokenValidatorResult.failure(new OAuth2Error("invalid_token"));
         };
         decoder.setJwtValidator(serviceValidator);
         return decoder;
