@@ -30,7 +30,7 @@ import Keycloak from 'keycloak-js';
     </div>
   `
 })
-export class HomeComponent {
+export class HomeComponentOld {
   private readonly keycloak = inject(Keycloak);
 
   isAuthenticated = signal<boolean>(false);

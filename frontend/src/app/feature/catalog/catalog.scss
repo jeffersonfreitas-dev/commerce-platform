@@ -1,0 +1,14 @@
+.page-title { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
+.catalog-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.filters { display: flex; gap: 10px; flex-wrap: wrap; }
+.filters .input { width: auto; min-width: 180px; }
+
+.grid-products {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+}
+@media (max-width: 1024px) { .grid-products { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px)  { .grid-products { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 420px)  { .grid-products { grid-template-columns: 1fr; } }
+
+.empty { padding: 60px 24px; text-align: center; margin-top: 24px; }
+.empty h3 { margin: 0 0 8px; }

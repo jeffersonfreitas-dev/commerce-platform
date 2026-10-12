@@ -1,0 +1,73 @@
+@if (product) {
+    <div class="container" style="padding-top:32px">
+    <nav class="breadcrumb text-muted">
+        <a routerLink="/">Início</a> / 
+        <a routerLink="/produtos">Produtos</a> / 
+        <span>{{ product.name }}</span>
+    </nav>
+
+    <div class="pdetail">
+        <div class="pdetail__gallery">
+        <img [src]="selectedImage" [alt]="product.name" class="pdetail__main">
+        @if (product.gallery?.length) {
+            <div class="pdetail__thumbs">
+            @for (img of product.gallery; track img) {
+                <button class="thumb" [class.active]="img === selectedImage" (click)="selectedImage = img">
+                <img [src]="img" alt="">
+                </button>
+            }
+            </div>
+        }
+        </div>
+
+        <div class="pdetail__info">
+        @if (product.originalPrice) {
+            <span class="badge badge-promo">Promoção</span>
+        }
+        <h1 class="pdetail__title">{{ product.name }}</h1>
+        <div class="pdetail__rating text-muted">
+            ★ {{ product.rating.toFixed(1) }} · {{ product.reviews }} avaliações
+        </div>
+
+        <div class="pdetail__price">
+            @if (product.originalPrice) {
+            <span class="price-old">{{ product.originalPrice | currency:'BRL' }}</span>
+            }
+            <span class="price" style="font-size:28px" [class.price-promo]="product.originalPrice">
+            {{ product.price | currency:'BRL' }}
+            </span>
+        </div>
+        <p class="text-muted">
+            em até <b>12x</b> de {{ product.price / 12 | currency:'BRL' }} sem juros
+        </p>
+
+        <p class="pdetail__desc">{{ product.description }}</p>
+
+        <div class="pdetail__stock text-muted">
+            {{ product.stock > 0 ? product.stock + ' em estoque' : 'Esgotado' }}
+        </div>
+
+        <div class="pdetail__actions">
+            <div class="qty">
+            <button (click)="dec()" [disabled]="qty <= 1">−</button>
+            <input type="number" [(ngModel)]="qty" min="1" [max]="product.stock">
+            <button (click)="inc()" [disabled]="qty >= product.stock">+</button>
+            </div>
+            <button class="btn btn-primary" (click)="addToCart()" [disabled]="product.stock === 0">
+            Adicionar ao carrinho
+            </button>
+            <button class="btn btn-ghost" (click)="buyNow()" [disabled]="product.stock === 0">
+            Comprar agora
+            </button>
+        </div>
+        </div>
+    </div>
+    </div>
+} @else {
+    <div class="container" style="padding-top:60px">
+    <div class="empty card">
+        <h3>Produto não encontrado</h3>
+        <a routerLink="/produtos" class="btn btn-primary mt-16">Voltar aos produtos</a>
+    </div>
+    </div>
+}

@@ -1,0 +1,139 @@
+<div class="container" style="padding-top:32px">
+    <h1 class="page-title">Finalizar compra</h1>
+
+    @if (cart.items().length === 0) {
+    <div class="empty card mt-24">
+        <h3>Nada para finalizar</h3>
+        <a routerLink="/produtos" class="btn btn-primary mt-16">Ver produtos</a>
+    </div>
+    } @else {
+    <div class="steps">
+        <div class="step" [class.active]="step() === 'address'" [class.done]="step() !== 'address'">1. Endereço</div>
+        <div class="step" [class.active]="step() === 'payment'" [class.done]="step() === 'review'">2. Pagamento</div>
+        <div class="step" [class.active]="step() === 'review'">3. Revisão</div>
+    </div>
+
+    <div class="checkout-layout">
+        <div class="checkout-form card">
+
+        @switch (step()) {
+            @case ('address') {
+            <h3>Endereço de entrega</h3>
+            <div class="field-row">
+                <div class="field">
+                <label>CEP</label>
+                <input class="input" [(ngModel)]="address.zip" placeholder="00000-000">
+                </div>
+                <div class="field">
+                <label>Cidade</label>
+                <input class="input" [(ngModel)]="address.city">
+                </div>
+            </div>
+            <div class="field">
+                <label>Rua</label>
+                <input class="input" [(ngModel)]="address.street">
+            </div>
+            <div class="field-row">
+                <div class="field">
+                <label>Número</label>
+                <input class="input" [(ngModel)]="address.number">
+                </div>
+                <div class="field">
+                <label>Complemento</label>
+                <input class="input" [(ngModel)]="address.complement">
+                </div>
+                <div class="field">
+                <label>Estado</label>
+                <input class="input" [(ngModel)]="address.state" maxlength="2" placeholder="SP">
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%" (click)="goPayment()">Continuar</button>
+            }
+
+            @case ('payment') {
+            <h3>Forma de pagamento</h3>
+            <div class="pay-options">
+                @for (opt of payOptions; track opt.value) {
+                <label class="pay-opt" [class.active]="paymentMethod === opt.value">
+                    <input type="radio" name="pay" [value]="opt.value" [(ngModel)]="paymentMethod">
+                    <span class="pay-opt__icon">{{ opt.icon }}</span>
+                    <div>
+                    <div class="pay-opt__title">{{ opt.title }}</div>
+                    <div class="text-muted" style="font-size:12px">{{ opt.desc }}</div>
+                    </div>
+                </label>
+                }
+            </div>
+
+            @if (paymentMethod === 'CREDIT_CARD') {
+                <div class="mt-16">
+                <div class="field">
+                    <label>Número do cartão</label>
+                    <input class="input" placeholder="0000 0000 0000 0000">
+                </div>
+                <div class="field-row">
+                    <div class="field"><label>Validade</label><input class="input" placeholder="MM/AA"></div>
+                    <div class="field"><label>CVV</label><input class="input" placeholder="123"></div>
+                </div>
+                </div>
+            }
+
+            <div class="actions-row">
+                <button class="btn btn-ghost" (click)="step.set('address')">Voltar</button>
+                <button class="btn btn-primary" (click)="goReview()">Continuar</button>
+            </div>
+            }
+
+            @case ('review') {
+            <h3>Revisar pedido</h3>
+
+            <div class="review-block">
+                <h4>Entrega</h4>
+                <p class="text-muted">
+                {{ address.street }}, {{ address.number }}
+                @if (address.complement) { — {{ address.complement }} }<br>
+                {{ address.city }} / {{ address.state }} — CEP {{ address.zip }}
+                </p>
+            </div>
+
+            <div class="review-block">
+                <h4>Pagamento</h4>
+                <p class="text-muted">{{ paymentLabel() }}</p>
+            </div>
+
+            <div class="review-block">
+                <h4>Itens ({{ cart.count() }})</h4>
+                @for (i of cart.items(); track i.product.id) {
+                <div class="row">
+                    <span>{{ i.quantity }}× {{ i.product.name }}</span>
+                    <span>{{ (i.product.price * i.quantity) | currency:'BRL' }}</span>
+                </div>
+                }
+            </div>
+
+            <div class="actions-row">
+                <button class="btn btn-ghost" (click)="step.set('payment')">Voltar</button>
+                <button class="btn btn-primary" [disabled]="processing()" (click)="confirm()">
+                {{ processing() ? 'Processando...' : 'Confirmar pedido' }}
+                </button>
+            </div>
+            }
+        }
+
+        </div>
+
+        <aside class="summary card">
+        <h3>Resumo</h3>
+        <div class="row"><span>Subtotal</span><span>{{ cart.subtotal() | currency:'BRL' }}</span></div>
+        @if (cart.discount() > 0) {
+            <div class="row text-success"><span>Descontos</span><span>-{{ cart.discount() | currency:'BRL' }}</span></div>
+        }
+        <div class="row"><span>Frete</span>
+            <span>{{ cart.shipping() === 0 ? 'Grátis' : (cart.shipping() | currency:'BRL') }}</span>
+        </div>
+        <hr>
+        <div class="row row--total"><span>Total</span><span>{{ cart.total() | currency:'BRL' }}</span></div>
+        </aside>
+    </div>
+    }
+</div>

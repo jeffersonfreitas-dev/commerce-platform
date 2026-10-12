@@ -3,6 +3,7 @@ package dev.jeffersonfreitas.order.infra.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,6 +23,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.client.RestClient;
 
+import java.net.http.HttpClient;
+import java.time.Duration;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -34,7 +38,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**", "/actuator/health").permitAll()
+                        .requestMatchers("/public/**", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 ).oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder())));
         return http.build();
@@ -57,8 +61,13 @@ public class SecurityConfig {
     @Bean
     public RestClient restClient(OAuth2AuthorizedClientManager authorizedClientManager) {
         var interceptor = new OAuth2ClientHttpRequestInterceptor(authorizedClientManager);
+        var httpClient = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(2)).build();
+        var requestFactory = new JdkClientHttpRequestFactory(httpClient);
+        requestFactory.setReadTimeout(Duration.ofSeconds(1));
+
         return RestClient.builder()
                 .baseUrl("http://customer-service:8081")
+                .requestFactory(requestFactory)
                 .requestInterceptor(interceptor).build();
     }
 

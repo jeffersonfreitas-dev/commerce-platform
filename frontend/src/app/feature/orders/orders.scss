@@ -1,0 +1,14 @@
+.page-title { margin: 0 0 20px; font-size: 28px; letter-spacing: -0.02em; }
+.order-list { display: flex; flex-direction: column; gap: 16px; }
+.order { padding: 18px; }
+.order__head { display: flex; justify-content: space-between; align-items: start; margin-bottom: 14px; }
+.order__id { font-weight: 700; font-size: 15px; }
+.order__items { display: flex; flex-direction: column; gap: 10px; }
+.order__item { display: flex; gap: 12px; align-items: center; }
+.order__item img { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; }
+.order__item-name { font-weight: 600; font-size: 14px; }
+.order__foot {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--ecom-border);
+}
+.empty { padding: 60px 24px; text-align: center; }

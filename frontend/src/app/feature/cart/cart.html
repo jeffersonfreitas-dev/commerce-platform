@@ -1,0 +1,64 @@
+<div class="container" style="padding-top:32px">
+    <h1 class="page-title">Carrinho</h1>
+
+    @if (cart.items().length === 0) {
+    <div class="empty card mt-24">
+        <h3>Seu carrinho está vazio</h3>
+        <p class="text-muted">Adicione produtos para continuar.</p>
+        <a routerLink="/produtos" class="btn btn-primary mt-16">Ver produtos</a>
+    </div>
+    } @else {
+    <div class="cart-layout">
+        <div class="cart-list">
+        @for (item of cart.items(); track item.product.id) {
+            <div class="cart-item card">
+            <img [src]="item.product.imageUrl" [alt]="item.product.name">
+            <div class="cart-item__info">
+                <a [routerLink]="['/produto', item.product.id]" class="cart-item__name">
+                {{ item.product.name }}
+                </a>
+                <span class="text-muted" style="font-size:13px">
+                {{ item.product.price | currency:'BRL' }} cada
+                </span>
+            </div>
+            <div class="qty">
+                <button (click)="cart.updateQty(item.product.id, item.quantity - 1)">−</button>
+                <span>{{ item.quantity }}</span>
+                <button (click)="cart.updateQty(item.product.id, item.quantity + 1)">+</button>
+            </div>
+            <div class="cart-item__subtotal">
+                {{ (item.product.price * item.quantity) | currency:'BRL' }}
+            </div>
+            <button class="cart-item__remove" (click)="cart.remove(item.product.id)" aria-label="Remover">
+                ✕
+            </button>
+            </div>
+        }
+        </div>
+
+        <aside class="cart-summary card">
+        <h3>Resumo</h3>
+        <div class="row"><span>Subtotal</span><span>{{ cart.subtotal() | currency:'BRL' }}</span></div>
+        @if (cart.discount() > 0) {
+            <div class="row text-success"><span>Descontos</span><span>-{{ cart.discount() | currency:'BRL' }}</span></div>
+        }
+        <div class="row"><span>Frete</span>
+            <span>{{ cart.shipping() === 0 ? 'Grátis' : (cart.shipping() | currency:'BRL') }}</span>
+        </div>
+        @if (cart.shipping() > 0) {
+            <p class="text-muted" style="font-size:12px;margin:4px 0">
+            Falta {{ (299 - cart.subtotal()) | currency:'BRL' }} para frete grátis.
+            </p>
+        }
+        <hr>
+        <div class="row row--total"><span>Total</span><span>{{ cart.total() | currency:'BRL' }}</span></div>
+        <button class="btn btn-primary mt-16" style="width:100%" (click)="checkout()">
+            Finalizar compra
+        </button>
+        <a routerLink="/produtos" class="btn btn-ghost mt-8" style="width:100%">
+            Continuar comprando
+        </a>
+        </aside>
+    </div>
+    }
+</div>

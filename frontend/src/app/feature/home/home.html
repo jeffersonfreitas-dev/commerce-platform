@@ -1,0 +1,58 @@
+<!-- HERO -->
+<section class="hero">
+    <div class="container hero__inner">
+    <div class="hero__text">
+        <span class="badge badge-promo">Ofertas da semana</span>
+        <h1 class="hero__title">As melhores promoções<br>em um só lugar</h1>
+        <p class="hero__sub">
+        Frete grátis em compras acima de R$ 299 · Parcele em até 12x sem juros
+        </p>
+        <div class="hero__actions">
+        <a routerLink="/produtos" class="btn btn-primary">Ver produtos</a>
+        <a routerLink="/produtos" [queryParams]="{cat:'eletronicos'}" class="btn btn-ghost">Eletrônicos</a>
+        </div>
+    </div>
+    <div class="hero__art">
+        <img src="https://picsum.photos/seed/ecom-hero/720/560" alt="Ofertas" />
+    </div>
+    </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section class="container section">
+    <h2 class="section__title">Categorias</h2>
+    <div class="cats">
+    @for (c of products.categories(); track c.id) {
+        <a [routerLink]="['/produtos']" [queryParams]="{cat: c.id}" class="cat card">
+        <div class="cat__icon">{{ c.name.charAt(0) }}</div>
+        <span>{{ c.name }}</span>
+        </a>
+    }
+    </div>
+</section>
+
+<!-- PROMOÇÕES -->
+<section class="container section">
+    <div class="section__head">
+    <h2 class="section__title">Promoções 🔥</h2>
+    <a routerLink="/produtos" [queryParams]="{promo:1}" class="link-more">Ver todas →</a>
+    </div>
+    <div class="grid-products">
+    @for (p of products.promotions().slice(0, 8); track p.id) {
+        <app-product-card [product]="p"></app-product-card>
+    }
+    </div>
+</section>
+
+<!-- DESTAQUES -->
+<section class="container section">
+    <div class="section__head">
+    <h2 class="section__title">Destaques</h2>
+    <a routerLink="/produtos" class="link-more">Ver tudo →</a>
+    </div>
+    <div class="grid-products">
+    @for (p of products.products().slice(0, 8); track p.id) {
+        <app-product-card [product]="p"></app-product-card>
+    }
+    </div>
+</section>

@@ -1,0 +1,37 @@
+<div class="container" style="padding-top:32px">
+    <div class="catalog-head">
+    <div>
+        <h1 class="page-title">Produtos</h1>
+        <p class="text-muted">{{ filtered().length }} resultado(s)</p>
+    </div>
+
+    <div class="filters">
+        <input class="input" placeholder="Pesquisar..." [(ngModel)]="query" (ngModelChange)="applyQuery()" />
+        <select class="input" [(ngModel)]="category" (ngModelChange)="applyQuery()">
+        <option value="">Todas as categorias</option>
+        @for (c of products.categories(); track c.id) {
+            <option [value]="c.id">{{ c.name }}</option>
+        }
+        </select>
+        <select class="input" [(ngModel)]="sortBy" (ngModelChange)="applyQuery()">
+        <option value="new">Mais recentes</option>
+        <option value="price-asc">Menor preço</option>
+        <option value="price-desc">Maior preço</option>
+        <option value="rating">Melhor avaliados</option>
+        </select>
+    </div>
+    </div>
+
+    @if (filtered().length === 0) {
+    <div class="empty card">
+        <h3>Nenhum produto encontrado</h3>
+        <p class="text-muted">Tente ajustar os filtros ou pesquisar por outro termo.</p>
+    </div>
+    } @else {
+    <div class="grid-products">
+        @for (p of filtered(); track p.id) {
+        <app-product-card [product]="p"></app-product-card>
+        }
+    </div>
+    }
+</div>

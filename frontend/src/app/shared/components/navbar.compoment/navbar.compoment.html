@@ -1,0 +1,54 @@
+<header class="ecom-navbar">
+    <div class="ecom-navbar__inner">
+    <a routerLink="/" class="ecom-navbar__brand">
+        <div class="logo-mark">E</div>
+        <span class="ecom-navbar__name">Ecom Store</span>
+    </a>
+
+    <div class="search-wrap">
+        <input
+        class="input"
+        type="search"
+        placeholder="Pesquisar produtos..."
+        [(ngModel)]="query"
+        (keyup.enter)="onSearch()"
+        aria-label="Pesquisar produtos"
+        />
+        <button class="btn btn-primary btn-search" (click)="onSearch()" aria-label="Buscar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        </button>
+    </div>
+
+    <nav class="nav-actions">
+        <a routerLink="/produtos" class="nav-link">Produtos</a>
+
+        <a routerLink="/carrinho" class="nav-icon" aria-label="Carrinho">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.7 13.4A2 2 0 0 0 9.7 16h9.4a2 2 0 0 0 2-1.6L23 6H6"/>
+        </svg>
+        @if (cart.count() > 0) {
+            <span class="cart-badge">{{ cart.count() }}</span>
+        }
+        </a>
+
+        @if (auth.isLogged) {
+        <div class="user-menu">
+            <button class="nav-link" (click)="toggleMenu()">
+            Olá, {{ auth.user()?.name }}
+            </button>
+            @if (menuOpen) {
+            <div class="user-dropdown card">
+                <a routerLink="/pedidos" (click)="menuOpen=false">Meus pedidos</a>
+                <button (click)="logout()">Sair</button>
+            </div>
+            }
+        </div>
+        } @else {
+         <button class="btn btn-primary btn-sm" (click)="auth.login()">Entrar</button>
+        }
+    </nav>
+    </div>
+</header>

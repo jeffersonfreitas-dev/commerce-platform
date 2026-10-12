@@ -1,0 +1,29 @@
+<div class="pcard card">
+    <a [routerLink]="['/produto', product.id]" class="pcard__img-wrap">
+    <img [src]="product.imageUrl" [alt]="product.name" class="pcard__img" loading="lazy">
+    @if (product.originalPrice) {
+        <span class="badge badge-promo pcard__badge">
+        -{{ discountPct }}%
+        </span>
+    }
+    </a>
+    <div class="pcard__body">
+    <h3 class="pcard__name">
+        <a [routerLink]="['/produto', product.id]">{{ product.name }}</a>
+    </h3>
+    <div class="pcard__rating text-muted">
+        ★ {{ product.rating.toFixed(1) }} · {{ product.reviews }} avaliações
+    </div>
+    <div class="pcard__price">
+        @if (product.originalPrice) {
+        <span class="price-old">{{ product.originalPrice | currency:'BRL' }}</span>
+        }
+        <span class="price" [class.price-promo]="product.originalPrice">
+        {{ product.price | currency:'BRL' }}
+        </span>
+    </div>
+    <button class="btn btn-primary pcard__add" (click)="add()" [disabled]="product.stock === 0">
+        {{ product.stock === 0 ? 'Esgotado' : 'Adicionar' }}
+    </button>
+    </div>
+</div>

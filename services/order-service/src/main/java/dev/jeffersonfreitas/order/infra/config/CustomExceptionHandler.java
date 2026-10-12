@@ -61,4 +61,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(CustomerServiceUnavailableException.class)
+    public ProblemDetail handleCustomerServiceUnavailableException(CustomerServiceUnavailableException e){
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, e.getMessage());
+        problemDetail.setTitle("Serviço indisponível");
+        return problemDetail;
+    }
+
 }

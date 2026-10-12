@@ -1,0 +1,48 @@
+.hero {
+    background:
+    radial-gradient(1000px 500px at 80% 0%, #dbeafe 0%, transparent 55%),
+    linear-gradient(135deg, #eff6ff 0%, #f8fafc 60%, #eef2ff 100%);
+    padding: 48px 0 56px;
+}
+.hero__inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; }
+.hero__title { font-size: 44px; line-height: 1.1; margin: 14px 0 12px; letter-spacing: -0.02em; }
+.hero__sub { color: var(--ecom-muted); font-size: 16px; margin: 0 0 22px; max-width: 480px; }
+.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero__art img {
+    width: 100%; height: 360px; object-fit: cover;
+    border-radius: 20px; box-shadow: var(--ecom-shadow);
+}
+@media (max-width: 900px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__title { font-size: 32px; }
+    .hero__art { display: none; }
+}
+
+.section { margin-top: 48px; }
+.section__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; }
+.section__title { font-size: 22px; margin: 0 0 16px; letter-spacing: -0.01em; }
+.section__head .section__title { margin-bottom: 0; }
+.link-more { color: var(--ecom-primary); font-weight: 600; font-size: 14px; }
+.link-more:hover { text-decoration: underline; }
+
+.cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.cat {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px; transition: transform .15s, box-shadow .2s;
+}
+.cat:hover { transform: translateY(-2px); box-shadow: var(--ecom-shadow); }
+.cat__icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: #eff6ff; color: var(--ecom-primary);
+    display: grid; place-items: center; font-weight: 700;
+}
+@media (max-width: 700px) { .cats { grid-template-columns: repeat(2, 1fr); } }
+
+.grid-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+@media (max-width: 1024px) { .grid-products { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px)  { .grid-products { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+@media (max-width: 420px)  { .grid-products { grid-template-columns: 1fr; } }

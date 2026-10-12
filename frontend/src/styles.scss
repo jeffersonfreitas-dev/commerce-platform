@@ -1,1 +1,138 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   ECOM THEME - Global (extensão do tema Keycloak)
+   ============================================================ */
+@use "sass:color";
+
+:root {
+  --ecom-primary: #2563eb;
+  --ecom-primary-hover: #1d4ed8;
+  --ecom-bg: #f8fafc;
+  --ecom-card: #ffffff;
+  --ecom-text: #0f172a;
+  --ecom-muted: #64748b;
+  --ecom-border: #cbd5e1;
+  --ecom-error: #dc2626;
+  --ecom-success: #16a34a;
+  --ecom-warning: #d97706;
+  --ecom-radius: 12px;
+  --ecom-radius-sm: 8px;
+  --ecom-navbar-h: 64px;
+  --ecom-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.18);
+  --ecom-shadow-sm: 0 4px 12px -6px rgba(15, 23, 42, 0.15);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--ecom-text);
+  background: var(--ecom-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; }
+
+img { max-width: 100%; display: block; }
+
+/* ---------- Container ---------- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Botões (mesma base do Keycloak) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: var(--ecom-radius);
+  font-size: 15px;
+  font-weight: 600;
+  transition: background .2s, transform .1s, box-shadow .2s;
+}
+.btn-primary {
+  background: var(--ecom-primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--ecom-primary-hover); box-shadow: 0 8px 20px -8px rgba(37,99,235,.5); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ecom-text);
+  border: 1px solid var(--ecom-border);
+}
+.btn-ghost:hover { background: #f1f5f9; }
+
+.btn-danger { background: var(--ecom-error); color:#fff; }
+
+/* ---------- Cards / Inputs ---------- */
+.card {
+  background: var(--ecom-card);
+  border: 1px solid rgba(203,213,225,.6);
+  border-radius: 16px;
+  box-shadow: var(--ecom-shadow-sm);
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--ecom-border);
+  border-radius: var(--ecom-radius);
+  background: #fff;
+  font: inherit;
+  color: var(--ecom-text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.input:focus {
+  border-color: var(--ecom-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* ---------- Badges / Preço ---------- */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+}
+.badge-promo { background: #fee2e2; color: #b91c1c; }
+.badge-new   { background: #dcfce7; color: #15803d; }
+
+.price {
+  font-size: 20px; font-weight: 700; color: var(--ecom-text);
+}
+.price-old {
+  font-size: 14px; color: var(--ecom-muted); text-decoration: line-through;
+}
+.price-promo { color: var(--ecom-error); }
+
+/* ---------- Skeleton ---------- */
+@keyframes ecom-pulse { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+.skeleton {
+  background: #e2e8f0;
+  border-radius: var(--ecom-radius-sm);
+  animation: ecom-pulse 1.4s ease-in-out infinite;
+}
+
+/* ---------- Utilitários ---------- */
+.text-muted { color: var(--ecom-muted); }
+.text-center { text-align: center; }
+.flex { display: flex; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.gap-8 { gap: 8px; } .gap-16 { gap: 16px; } .gap-24 { gap: 24px; }
+.mt-8{margin-top:8px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}.mt-32{margin-top:32px}
