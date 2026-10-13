@@ -2,9 +2,9 @@ package dev.jeffersonfreitas.order.infra.out.persistence.product;
 
 import dev.jeffersonfreitas.order.application.exception.BusinessException;
 import dev.jeffersonfreitas.order.domain.model.Product;
-import dev.jeffersonfreitas.order.domain.valueobject.Description;
-import dev.jeffersonfreitas.order.domain.valueobject.Identity;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public final class ProductMapper {
@@ -18,6 +18,14 @@ public final class ProductMapper {
                 product.name(),
                 product.description(),
                 product.price(),
+                product.originalPrice(),
+                product.urlImage(),
+                product.imageGalery(),
+                product.category(),
+                product.stock(),
+                BigDecimal.valueOf(product.rating()),
+                product.reviews(),
+                product.tags(),
                 product.createdAt(),
                 product.updatedAt()
         );
@@ -32,6 +40,14 @@ public final class ProductMapper {
                 entity.getName(),
                 entity.getDescription(),
                 entity.getPrice(),
+                entity.getOriginalPrice(),
+                entity.getImage(),
+                entity.getGalery(),
+                entity.getCategory(),
+                entity.getStock(),
+                entity.getTags(),
+                entity.getRating().doubleValue(),
+                entity.getReviews(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );

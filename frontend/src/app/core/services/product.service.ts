@@ -29,6 +29,7 @@ export class ProductService{
     }    
 }
 
+
 /* -------- Mock -------- */
 const MOCK_CATEGORIES: Category[] = [
   { id: 'eletronicos', name: 'Eletrônicos' },

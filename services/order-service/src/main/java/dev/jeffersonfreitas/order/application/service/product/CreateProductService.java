@@ -20,7 +20,8 @@ public class CreateProductService implements CreateProductUseCase {
         if(productRepository.existsByName(input.name())){
             throw new ProductAlreadyExistsException("Já existe um produto cadastrado com este nome");
         }
-        Product product = new Product(input.description(), input.name(), input.price());
+        Product product = new Product(input.description(), input.name(), input.price(),
+                input.originalPrice(), input.urlImage(), input.galery(), input.category(), input.stock(), input.tags());
         Product productSaved = productRepository.save(product);
         return ProductOutput.from(productSaved);
     }

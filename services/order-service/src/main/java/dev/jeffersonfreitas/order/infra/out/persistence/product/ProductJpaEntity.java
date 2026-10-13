@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,6 +30,30 @@ public class ProductJpaEntity {
 
     @Column(nullable = false)
     private BigDecimal price;
+
+    @Column(nullable = false, name = "original_price")
+    private BigDecimal originalPrice;
+
+    @Column(nullable = false)
+    private String image;
+
+    @Column(nullable = false)
+    private List<String> galery;
+
+    @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
+    private BigDecimal stock;
+
+    @Column(nullable = false)
+    private BigDecimal rating;
+
+    @Column(nullable = false)
+    private Integer reviews;
+
+    @Column(nullable = false)
+    private List<String> tags;
 
     @Column(name = "created_at")
     private Instant createdAt;

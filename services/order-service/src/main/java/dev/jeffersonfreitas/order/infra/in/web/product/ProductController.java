@@ -2,19 +2,13 @@ package dev.jeffersonfreitas.order.infra.in.web.product;
 
 import dev.jeffersonfreitas.order.application.dto.PageGeneric;
 import dev.jeffersonfreitas.order.application.dto.PageableRequest;
-import dev.jeffersonfreitas.order.application.dto.SortOrder;
 import dev.jeffersonfreitas.order.application.port.in.product.*;
 import dev.jeffersonfreitas.order.application.port.in.product.dto.CreateProductInput;
 import dev.jeffersonfreitas.order.application.port.in.product.dto.ProductOutput;
 import dev.jeffersonfreitas.order.application.port.in.product.dto.UpdateProductInput;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -38,7 +32,8 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> create(@RequestBody CreateProductRequest request){
-        CreateProductInput input = new CreateProductInput(request.description(), request.name(), request.price());
+        CreateProductInput input = new CreateProductInput(request.description(), request.name(), request.price(), request.originalPrice(),
+                request.urlImage(), request.galery(), request.category(), request.stock(), request.tags());
         ProductOutput output = createProductUseCase.execute(input);
         ProductResponse response = ProductResponse.from(output);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -71,7 +66,8 @@ public class ProductController {
 
     @PutMapping("{id}")
     public ResponseEntity<ProductResponse> update(@PathVariable(name = "id") String id, @RequestBody UpdateProductRequest request){
-        UpdateProductInput input = new UpdateProductInput(request.description(), request.price());
+        UpdateProductInput input = new UpdateProductInput(request.description(), request.price(), request.originalPrice(), request.urlImage(),
+                request.galery(), request.category(), request.tags());
         ProductOutput output = updateProductUseCase.execute(id, input);
         ProductResponse response = ProductResponse.from(output);
         return ResponseEntity.status(HttpStatus.OK).body(response);
